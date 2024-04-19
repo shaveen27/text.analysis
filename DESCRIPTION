@@ -4,7 +4,10 @@ Version: 0.0.0.9000
 Authors@R: 
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: The goal of this R package "textAnalysisR" is to provide a series 
+    of functions that allows a user to analyze a text dataset using some common 
+    Natural Language Processing techniques, train some models and evaluate their 
+    performance.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
