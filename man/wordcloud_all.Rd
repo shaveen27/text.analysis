@@ -7,7 +7,7 @@
 wordcloud_all(data)
 }
 \arguments{
-\item{file}{clean text data file}
+\item{data}{clean text data file}
 }
 \description{
 This function will explore the dataset with word clouds. It will provide a

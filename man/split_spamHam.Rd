@@ -7,7 +7,7 @@
 split_spamHam(data)
 }
 \arguments{
-\item{file}{corpus file}
+\item{data}{corpus file}
 }
 \description{
 This function splits the corpus into two subsets: spam and ham.

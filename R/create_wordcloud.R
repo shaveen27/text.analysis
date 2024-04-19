@@ -4,7 +4,7 @@
 #' This function will explore the dataset with word clouds. It will provide a
 #' visualization of the frequency of words in our corpus.
 #'
-#' @param file clean text data file
+#' @param data clean text data file
 #'
 #' @details
 #' Exploring the dataset with word clouds. This will show the frequency of words
@@ -91,12 +91,12 @@ wordcloud_spam <- function(spam_set) {
 #' @description
 #' This function splits the corpus into two subsets: spam and ham.
 #'
-#' @param file corpus file
+#' @param data corpus file
 #'
 #' @export
 split_spamHam <- function(data) {
   #dataset: category (ham, spam) and message (texts)
-  data <- data.frame(data)
+  corpus <- data.frame(data)
   #split into spam and ham sets
   spam_set <- data.frame(message = corpus$message[corpus$category == "spam"])
   ham_set <- data.frame(message = corpus$message[corpus$category == "ham"])

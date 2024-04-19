@@ -192,6 +192,8 @@ rf_classification <- function(data, ntree = 500,
 #'
 #' @return \link[base]{list} with length 3
 #'
+#' @importFrom stats binomial glm predict
+#'
 #' @export
 log_classification <- function(data, threshold = 0.5){
 
