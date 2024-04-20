@@ -19,8 +19,10 @@ It returns a list containing summary statistics, distributions of categories,
 message lengths, word counts, and checks for missing values.
 }
 \examples{
-data <- data.frame(category = c("ham", "spam"), message = c("Hello world",
-"Buy now"))
+data <- data.frame(category = c("ham", "spam"), message = c(
+  "Hello world",
+  "Buy now"
+))
 email_data <- email_list(data)
 explore_data(email_data)
 }

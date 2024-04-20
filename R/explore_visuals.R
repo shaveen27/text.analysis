@@ -20,12 +20,15 @@ explore_visuals <- function(results) {
   }
   plots <- list()
   category_table <- data.frame(
-                               Category = names(results$category_distribution),
-                               Frequency =
-                                 as.integer(results$category_distribution))
+    Category = names(results$category_distribution),
+    Frequency =
+      as.integer(results$category_distribution)
+  )
   category_distribution_plot <-
-    ggplot2::ggplot(category_table, aes(x = "", y = "", fill =
-                                          names(results$category_distribution)))
+    ggplot2::ggplot(category_table, aes(
+      x = "", y = "", fill =
+        names(results$category_distribution)
+    ))
   +
     geom_bar(stat = "identity", width = 1) +
     coord_polar(theta = "y") +

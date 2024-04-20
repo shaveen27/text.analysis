@@ -4,7 +4,7 @@
 #' This function will explore the dataset with word clouds. It will provide a
 #' visualization of the frequency of words in our corpus.
 #'
-#' @param data clean text data file
+#' @param corpus clean text data file
 #'
 #' @details
 #' Exploring the dataset with word clouds. This will show the frequency of words
@@ -14,18 +14,21 @@
 #' @import tm wordcloud
 #'
 #' @export
-wordcloud_all <- function(data) {
-  #use clean data: All messages
-  corpus <- data
-  wordcloud(words = corpus$message,
-            #minimum frequency of a word is present to show
-            min.freq = 100,
-            #most frequent words in the center of the wordcloud
-            random.order = FALSE,
-            #color font
-            colors = c("#00BFFF", "#836FFF", "#CAFF70", "#FF7F50", "#8B2323",
-                       "#fdae61", "#fee090", "#FF4040"),
-            title = "Dataset Wordcloud")
+wordcloud_all <- function(corpus) {
+  # use clean data: All messages
+  wordcloud(
+    words = corpus$message,
+    # minimum frequency of a word is present to show
+    min.freq = 100,
+    # most frequent words in the center of the wordcloud
+    random.order = FALSE,
+    # color font
+    colors = c(
+      "#00BFFF", "#836FFF", "#CAFF70", "#FF7F50", "#8B2323",
+      "#fdae61", "#fee090", "#FF4040"
+    ),
+    title = "Dataset Wordcloud"
+  )
 }
 
 #' Function to Create Word Clouds for all Ham messages
@@ -45,16 +48,20 @@ wordcloud_all <- function(data) {
 #'
 #' @export
 wordcloud_ham <- function(ham_set) {
-  #use clean data
-  wordcloud(words = ham_set,
-            #minimum frequency of a word is present to show
-            min.freq = 50,
-            #most frequent words in the center of the word cloud
-            random.order = FALSE,
-            #color font
-            colors = c("#4575b4", "#74add1", "#abd9e9", "#e0f3f8",
-                       "#fee090", "#fdae61", "#f46d43", "#d73027"),
-            main = "Ham Wordcloud")
+  # use clean data
+  wordcloud(
+    words = ham_set,
+    # minimum frequency of a word is present to show
+    min.freq = 50,
+    # most frequent words in the center of the word cloud
+    random.order = FALSE,
+    # color font
+    colors = c(
+      "#4575b4", "#74add1", "#abd9e9", "#e0f3f8",
+      "#fee090", "#fdae61", "#f46d43", "#d73027"
+    ),
+    main = "Ham Wordcloud"
+  )
 }
 
 #' Function to Create Word Clouds for all Spam messages
@@ -74,16 +81,20 @@ wordcloud_ham <- function(ham_set) {
 #'
 #' @export
 wordcloud_spam <- function(spam_set) {
-  #use clean data
-  wordcloud(words = spam_set,
-            #minimum frequency of a word is present to show
-            min.freq = 50,
-            #most frequent words in the center of the wordcloud
-            random.order = FALSE,
-            #color font
-            colors = c("#00BFFF", "#836FFF", "#CAFF70", "#FF7F50", "#8B2323",
-                       "#fdae61", "#fee090", "#CD1076"),
-            title = "Spam Wordcloud")
+  # use clean data
+  wordcloud(
+    words = spam_set,
+    # minimum frequency of a word is present to show
+    min.freq = 50,
+    # most frequent words in the center of the wordcloud
+    random.order = FALSE,
+    # color font
+    colors = c(
+      "#00BFFF", "#836FFF", "#CAFF70", "#FF7F50", "#8B2323",
+      "#fdae61", "#fee090", "#CD1076"
+    ),
+    title = "Spam Wordcloud"
+  )
 }
 
 #' Function to split into spam and ham subsets
@@ -94,10 +105,16 @@ wordcloud_spam <- function(spam_set) {
 #' @param data corpus file
 #'
 #' @export
-split_spamHam <- function(data) {
-  #dataset: category (ham, spam) and message (texts)
+split_spamham <- function(data) {
+  # dataset: category (ham, spam) and message (texts)
   corpus <- data.frame(data)
-  #split into spam and ham sets
+  # split into spam and ham sets
   spam_set <- data.frame(message = corpus$message[corpus$category == "spam"])
   ham_set <- data.frame(message = corpus$message[corpus$category == "ham"])
+
+  return(list(
+    Data = corpus,
+    Spam = spam_set,
+    Ham = ham_set
+  ))
 }

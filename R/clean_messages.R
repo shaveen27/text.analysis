@@ -12,7 +12,7 @@
 #'
 #' @export
 lower_case <- function(x) {
-  if (attr(x,"class") != "email_list") {
+  if (attr(x, "class") != "email_list") {
     stop("x should be a email_list object")
   }
 
@@ -36,7 +36,7 @@ lower_case <- function(x) {
 #' @export
 remove_numbers <- function(x) {
   # Check if the list is an email_list object
-  if (attr(x,"class") != "email_list") {
+  if (attr(x, "class") != "email_list") {
     stop("x should be a email_list object")
   }
 
@@ -61,7 +61,7 @@ remove_numbers <- function(x) {
 #' @export
 remove_punctuations <- function(x) {
   # Check if the list is an email_list object
-  if (attr(x,"class") != "email_list") {
+  if (attr(x, "class") != "email_list") {
     stop("x should be a email_list object")
   }
 
@@ -86,7 +86,7 @@ remove_punctuations <- function(x) {
 #' @export
 remove_whitespaces <- function(x) {
   # Check if the list is an email_list object
-  if (attr(x,"class") != "email_list") {
+  if (attr(x, "class") != "email_list") {
     stop("x should be a email_list object")
   }
 
@@ -115,7 +115,7 @@ remove_whitespaces <- function(x) {
 #' @export
 remove_stopwords <- function(x) {
   # Check if the list is an email_list object
-  if (attr(x,"class") != "email_list") {
+  if (attr(x, "class") != "email_list") {
     stop("x should be a email_list object")
   }
 
@@ -129,4 +129,3 @@ remove_stopwords <- function(x) {
 
   email_list(list(category = unclass(x)$category, message = message))
 }
-

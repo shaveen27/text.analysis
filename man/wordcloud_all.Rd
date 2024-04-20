@@ -4,10 +4,10 @@
 \alias{wordcloud_all}
 \title{Function to Create Word Clouds for all dataset}
 \usage{
-wordcloud_all(data)
+wordcloud_all(corpus)
 }
 \arguments{
-\item{data}{clean text data file}
+\item{corpus}{clean text data file}
 }
 \description{
 This function will explore the dataset with word clouds. It will provide a

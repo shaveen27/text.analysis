@@ -13,8 +13,10 @@
 #' @importFrom tidyr %>%
 #'
 #' @examples
-#' data <- data.frame(category = c("ham", "spam"), message = c("Hello world",
-#' "Buy now"))
+#' data <- data.frame(category = c("ham", "spam"), message = c(
+#'   "Hello world",
+#'   "Buy now"
+#' ))
 #' email_data <- email_list(data)
 #' explore_data(email_data)
 explore_data <- function(email_list_obj) {

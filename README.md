@@ -60,14 +60,14 @@ scripts to impove speed of the package.
 You can install the development version of textAnalysisR as follows:
 
 ``` r
-#install.package("textAnalysisR")
+# install.package("textAnalysisR")
 ```
 
 Also, to get started on using this repository, type the following into
 your favorite git command line tool:
 
 ``` r
-#git clone git@github.com:shaveen27/textAnalysisR.git
+# git clone git@github.com:shaveen27/textAnalysisR.git
 ```
 
 The previous command will download all of the code onto your computer.

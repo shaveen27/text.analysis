@@ -32,35 +32,42 @@ count_convert_num <- function(x) {
 #' @return \link[base]{list} with length 3
 #'
 #' @export
-nb_classification <- function(data, laplace = 0, ...){
-
+nb_classification <- function(data, laplace = 0, ...) {
   # Convert the train set
-  train <- data.frame("category" = as.factor(data$train[,1]),
-                      apply(data$train[,-1], MARGIN = 2, count_convert_fct))
+  train <- data.frame(
+    "category" = as.factor(data$train[, 1]),
+    apply(data$train[, -1], MARGIN = 2, count_convert_fct)
+  )
 
   # Convert the test set
-  test <-  data.frame("category" = as.factor(data$test[,1]),
-                      apply(data$test[,-1], MARGIN = 2, count_convert_fct))
+  test <- data.frame(
+    "category" = as.factor(data$test[, 1]),
+    apply(data$test[, -1], MARGIN = 2, count_convert_fct)
+  )
 
   # Fit the Naive - Bayes model
-  nb_model <- naiveBayes(category ~ ., data = train ,laplace = laplace, ...)
+  nb_model <- naiveBayes(category ~ ., data = train, laplace = laplace, ...)
   nb_pred <- predict(nb_model, test)
 
   # Confusion matrix
-  tab <- table(nb_pred,test$category)
+  tab <- table(nb_pred, test$category)
 
   # Calculate accuracy measures
-  Accuracy <- paste0(round(100*sum(diag(tab))/sum(tab),2),"%")
-  Precision <- tab[2,2]/(tab[2,2] + tab[2,1])
-  Recall <- tab[2,2]/(tab[2,2] + tab[1,2])
-  F1_Score <- round(2*Precision*Recall/(Precision + Recall),2)
+  accuracy <- paste0(round(100 * sum(diag(tab)) / sum(tab), 2), "%")
+  precision <- tab[2, 2] / (tab[2, 2] + tab[2, 1])
+  recall <- tab[2, 2] / (tab[2, 2] + tab[1, 2])
+  f1_score <- round(2 * precision * recall / (precision + recall), 2)
 
-  list(Model = nb_model,
-       Confusion_Matrix = tab,
-       Accuracy_Measures = data.frame(Accuracy,
-                                      Precision = round(Precision,2),
-                                      Recall = round(Recall,2),
-                                      F1_Score))
+  list(
+    Model = nb_model,
+    Confusion_Matrix = tab,
+    Accuracy_Measures = data.frame(
+      Accuracy = accuracy,
+      Precision = round(precision, 2),
+      Recall = round(recall, 2),
+      F1_Score = f1_score
+    )
+  )
 }
 
 #' SVM Classification Accuracy Measures
@@ -85,46 +92,57 @@ nb_classification <- function(data, laplace = 0, ...){
 #'
 #' @export
 svm_classification <- function(data, kernel = "radial",
-                               gamma = 1/ncol(data$train), cost = 1, ...){
-
+                               gamma = 1 / ncol(data$train), cost = 1, ...) {
   # Convert the train set
-  train <- data.frame("category" = as.factor(data$train[,1]),
-                      apply(data$train[,-1], MARGIN = 2, count_convert_num))
+  train <- data.frame(
+    "category" = as.factor(data$train[, 1]),
+    apply(data$train[, -1], MARGIN = 2, count_convert_num)
+  )
 
   # Convert the test set
-  test <-  data.frame("category" = as.factor(data$test[,1]),
-                      apply(data$test[,-1], MARGIN = 2, count_convert_num))
+  test <- data.frame(
+    "category" = as.factor(data$test[, 1]),
+    apply(data$test[, -1], MARGIN = 2, count_convert_num)
+  )
 
   # Fit the RBF kernel and linear kernel models
-  if(kernel == "radial"){
-    svm_model <- svm(category ~ ., data = train ,kernel = kernel,
-                         cost = 1, gamma = 1/(ncol(data) - 1),
-                         scale = FALSE)
+  if (kernel == "radial") {
+    svm_model <- svm(category ~ .,
+      data = train, kernel = kernel,
+      cost = 1, gamma = 1 / (ncol(data) - 1),
+      scale = FALSE
+    )
     svm_pred <- predict(svm_model, test)
 
     # Confusion matrix
-    tab <- table(svm_pred,test$category)
-  }else if(kernel == "linear"){
-    svm_model <- svm(category ~ ., data = train ,kernel = kernel,
-                         scale = FALSE, cost = cost)
+    tab <- table(svm_pred, test$category)
+  } else if (kernel == "linear") {
+    svm_model <- svm(category ~ .,
+      data = train, kernel = kernel,
+      scale = FALSE, cost = cost
+    )
     svm_pred <- predict(svm_model, test)
 
     # Confusion matrix
-    tab <- table(svm_pred,test$category)
+    tab <- table(svm_pred, test$category)
   }
 
   # Calculate accuracy measures
-  Accuracy <- paste0(round(100*sum(diag(tab))/sum(tab),2),"%")
-  Precision <- tab[2,2]/(tab[2,2] + tab[2,1])
-  Recall <- tab[2,2]/(tab[2,2] + tab[1,2])
-  F1_Score <- round(2*Precision*Recall/(Precision + Recall),2)
+  accuracy <- paste0(round(100 * sum(diag(tab)) / sum(tab), 2), "%")
+  precision <- tab[2, 2] / (tab[2, 2] + tab[2, 1])
+  recall <- tab[2, 2] / (tab[2, 2] + tab[1, 2])
+  f1_score <- round(2 * precision * recall / (precision + recall), 2)
 
-  list(Model = svm_model,
-       Confusion_Matrix = tab,
-       Accuracy_Measures = data.frame(Accuracy,
-                                      Precision = round(Precision,2),
-                                      Recall = round(Recall,2),
-                                      F1_Score))
+  list(
+    Model = svm_model,
+    Confusion_Matrix = tab,
+    Accuracy_Measures = data.frame(
+      Accuracy = accuracy,
+      Precision = round(precision, 2),
+      Recall = round(recall, 2),
+      F1_Score = f1_score
+    )
+  )
 }
 
 #' Random Forest Classification Accuracy Measures
@@ -148,36 +166,45 @@ svm_classification <- function(data, kernel = "radial",
 #'
 #' @export
 rf_classification <- function(data, ntree = 500,
-                              mtry = sqrt(ncol(data$train)),...){
-
+                              mtry = sqrt(ncol(data$train)), ...) {
   # Convert the train set
-  train <- data.frame("category" = as.factor(data$train[,1]),
-                      apply(data$train[,-1], MARGIN = 2, count_convert_fct))
+  train <- data.frame(
+    "category" = as.factor(data$train[, 1]),
+    apply(data$train[, -1], MARGIN = 2, count_convert_fct)
+  )
 
   # Convert the test set
-  test <-  data.frame("category" = as.factor(data$test[,1]),
-                      apply(data$test[,-1], MARGIN = 2, count_convert_fct))
+  test <- data.frame(
+    "category" = as.factor(data$test[, 1]),
+    apply(data$test[, -1], MARGIN = 2, count_convert_fct)
+  )
 
   # Fit the Random Forest model
-  rf_model <- randomForest(category ~ ., data = train ,ntree = ntree,
-                         mtry = mtry, ...)
+  rf_model <- randomForest(category ~ .,
+    data = train, ntree = ntree,
+    mtry = mtry, ...
+  )
   rf_pred <- predict(rf_model, test)
 
   # Confusion matrix
-  tab <- table(rf_pred,test$category)
+  tab <- table(rf_pred, test$category)
 
   # Calculate accuracy measures
-  Accuracy <- paste0(round(100*sum(diag(tab))/sum(tab),2),"%")
-  Precision <- tab[2,2]/(tab[2,2] + tab[2,1])
-  Recall <- tab[2,2]/(tab[2,2] + tab[1,2])
-  F1_Score <- round(2*Precision*Recall/(Precision + Recall),2)
+  accuracy <- paste0(round(100 * sum(diag(tab)) / sum(tab), 2), "%")
+  precision <- tab[2, 2] / (tab[2, 2] + tab[2, 1])
+  recall <- tab[2, 2] / (tab[2, 2] + tab[1, 2])
+  f1_score <- round(2 * precision * recall / (precision + recall), 2)
 
-  list(Model = rf_model,
-       Confusion_Matrix = tab,
-       Accuracy_Measures = data.frame(Accuracy,
-                                      Precision = round(Precision,2),
-                                      Recall = round(Recall,2),
-                                      F1_Score))
+  list(
+    Model = rf_model,
+    Confusion_Matrix = tab,
+    Accuracy_Measures = data.frame(
+      Accuracy = accuracy,
+      Precision = round(precision, 2),
+      Recall = round(recall, 2),
+      F1_Score = f1_score
+    )
+  )
 }
 
 #' Logistic Regression Classification Accuracy Measures
@@ -195,36 +222,43 @@ rf_classification <- function(data, ntree = 500,
 #' @importFrom stats binomial glm predict
 #'
 #' @export
-log_classification <- function(data, threshold = 0.5){
-
+log_classification <- function(data, threshold = 0.5) {
   # Convert the train set
-  train <- data.frame("category" = as.factor(data$train[,1]),
-                      apply(data$train[,-1], MARGIN = 2, count_convert_num))
+  train <- data.frame(
+    "category" = as.factor(data$train[, 1]),
+    apply(data$train[, -1], MARGIN = 2, count_convert_num)
+  )
 
   # Convert the test set
-  test <-  data.frame("category" = as.factor(data$test[,1]),
-                      apply(data$test[,-1], MARGIN = 2, count_convert_num))
+  test <- data.frame(
+    "category" = as.factor(data$test[, 1]),
+    apply(data$test[, -1], MARGIN = 2, count_convert_num)
+  )
 
   # Fit the Logistic Regression model
   log_model <- glm(category ~ ., data = train, family = binomial("logit"))
-  log_pred <-  ifelse(predict(log_model, test,type = "response") <= threshold,
-                      as.character(sort(unique(train$category))[1]),
-                      as.character(sort(unique(train$category))[2]))
+  log_pred <- ifelse(predict(log_model, test, type = "response") <= threshold,
+    as.character(sort(unique(train$category))[1]),
+    as.character(sort(unique(train$category))[2])
+  )
 
   # Confusion matrix
-  tab <- table(log_pred,test$category)
+  tab <- table(log_pred, test$category)
 
   # Calculate accuracy measures
-  Accuracy <- paste0(round(100*sum(diag(tab))/sum(tab),2),"%")
-  Precision <- tab[2,2]/(tab[2,2] + tab[2,1])
-  Recall <- tab[2,2]/(tab[2,2] + tab[1,2])
-  F1_Score <- round(2*Precision*Recall/(Precision + Recall),2)
+  accuracy <- paste0(round(100 * sum(diag(tab)) / sum(tab), 2), "%")
+  precision <- tab[2, 2] / (tab[2, 2] + tab[2, 1])
+  recall <- tab[2, 2] / (tab[2, 2] + tab[1, 2])
+  f1_score <- round(2 * precision * recall / (precision + recall), 2)
 
-  list(Model = log_model,
-       Confusion_Matrix = tab,
-       Accuracy_Measures = data.frame(Accuracy,
-                                      Precision = round(Precision,2),
-                                      Recall = round(Recall,2),
-                                      F1_Score))
+  list(
+    Model = log_model,
+    Confusion_Matrix = tab,
+    Accuracy_Measures = data.frame(
+      Accuracy = accuracy,
+      Precision = round(precision, 2),
+      Recall = round(recall, 2),
+      F1_Score = f1_score
+    )
+  )
 }
-
