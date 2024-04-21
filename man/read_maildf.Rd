@@ -33,7 +33,7 @@ handled. Quoting applies only to columns read as character, unless
 \item{...}{Further arguments to be passed to \link[utils]{read.table}.}
 }
 \value{
-\link[text.analysis]{email_list} object
+\link[base]{data.frame}
 }
 \description{
 This function is design to read data file that contains email messages.

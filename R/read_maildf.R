@@ -26,7 +26,7 @@
 #' `colClasses` is specified.
 #' @param ... Further arguments to be passed to \link[utils]{read.table}.
 #'
-#' @return \link[text.analysis]{email_list} object
+#' @return \link[base]{data.frame}
 #'
 #' @export
 read_maildf <- function(file, header = FALSE, sep = "", skip = 0,
@@ -36,23 +36,36 @@ read_maildf <- function(file, header = FALSE, sep = "", skip = 0,
     file = file, header = header, sep = sep,
     quote = quote, ...
   )
+}
 
+#' Function to convert data frame with messages to list
+#'
+#' @description
+#' This function is design convert a data frame with  messages to `email_list`
+#'  object
+#'
+#' @param data \link[base]{data.frame} with messages
+#'
+#' @return \link[text.analysis]{email_list} object
+#'
+#' @export
+convert_mail_list <- function(data){
   # Check data set contains 2 columns
-  if (ncol(df) != 2) {
+  if (ncol(data) != 2) {
     stop("The data set should contain two columns: one column for classifying
          emails as ham/spam, and another column for the email messages.",
-      call. = FALSE
+         call. = FALSE
     )
   }
 
-  # Make data set
+  # Make the list
   for (i in seq_len(2)) {
-    if (length(unique(df[, i])) == 2) {
-      category <- as.vector(df[, i])
+    if (length(unique(data[, i])) == 2) {
+      category <- as.vector(data[, i])
     }
 
-    if (length(unique(df[, i])) != 2) {
-      message <- as.vector(df[, i])
+    if (length(unique(data[, i])) != 2) {
+      message <- as.vector(data[, i])
     }
   }
 
