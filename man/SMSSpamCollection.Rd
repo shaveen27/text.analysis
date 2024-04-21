@@ -5,7 +5,7 @@
 \alias{SMSSpamCollection}
 \title{SMS Spam Collection}
 \format{
-\subsection{\code{SMSSpamCollection}}{
+\subsection{\verb{SMS Spam Collection}}{
 
 A data frame with 5,574 rows and 2 columns:
 \describe{
