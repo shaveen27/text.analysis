@@ -120,7 +120,7 @@ remove_stopwords <- function(x) {
   }
 
   # Import stopwords text file
-  stwd <- gsub("^\\s+|\\s+$", "", scan("./stopwords.txt", character(),
+  stwd <- gsub("^\\s+|\\s+$", "", scan("stopwords.txt", character(),
     sep = ",", quiet = TRUE
   ))
 
