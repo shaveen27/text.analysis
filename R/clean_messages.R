@@ -119,13 +119,8 @@ remove_stopwords <- function(x) {
     stop("x should be a email_list object")
   }
 
-  # Import stopwords text file
-  stwd <- gsub("^\\s+|\\s+$", "", scan("stopwords.txt", character(),
-    sep = ",", quiet = TRUE
-  ))
-
   # Remove stop words
-  message <- remove_stopword_cpp(strsplit(unclass(x)$message, " "), stwd)
+  message <- remove_stopword_cpp(strsplit(unclass(x)$message, " "), stopwords)
 
   email_list(list(category = unclass(x)$category, message = message))
 }
