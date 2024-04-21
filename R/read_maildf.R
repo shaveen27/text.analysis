@@ -36,6 +36,8 @@ read_maildf <- function(file, header = FALSE, sep = "", skip = 0,
     file = file, header = header, sep = sep,
     quote = quote, ...
   )
+
+  return(df)
 }
 
 #' Function to convert data frame with messages to list
@@ -49,12 +51,12 @@ read_maildf <- function(file, header = FALSE, sep = "", skip = 0,
 #' @return \link[text.analysis]{email_list} object
 #'
 #' @export
-convert_mail_list <- function(data){
+convert_mail_list <- function(data) {
   # Check data set contains 2 columns
   if (ncol(data) != 2) {
     stop("The data set should contain two columns: one column for classifying
          emails as ham/spam, and another column for the email messages.",
-         call. = FALSE
+      call. = FALSE
     )
   }
 
