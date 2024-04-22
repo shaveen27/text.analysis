@@ -9,8 +9,8 @@
 #' function.
 #' @import ggplot2
 #' @return A list of ggplot objects representing the visualizations.
+#'
 #' @export
-
 explore_visuals <- function(results) {
   if (!is.list(results)) {
     stop(
