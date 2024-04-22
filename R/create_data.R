@@ -19,6 +19,10 @@
 final_model_df <- function(data, tol) {
   ### clean the data set and return a list of two; type and df
 
+  if (tol < 0) {
+    stop("tol should be a positive integer value")
+  }
+
   if (ceiling(tol) != tol) {
     message("tol should be an interger value")
     tol <- ceiling(tol)
