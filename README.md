@@ -26,19 +26,18 @@ their performance.
 
 In this package, we analyze the text dataset as follows:
 
-1.  Load Data from text files
-2.  Install necessary packages  
-3.  Explore the text dataset  
-4.  Visualizing the corpus with word clouds
-5.  Data Preprocessing: Standardization and cleaning  
+1.  Load Data from text files (Install necessary packages)
+2.  Explore the text dataset  
+3.  Visualizing the corpus with word clouds
+4.  Data Preprocessing: Standardization and cleaning  
 
 - Convert to lower case  
 - Remove punctuations and numbers
 - Remove extra white space  
 - Remove stop words
 
-6.  Data partitioning: Creating training and testing datasets  
-7.  Training a classifier on the data and evaluating model
+5.  Data partitioning: Creating training and testing datasets  
+6.  Training a classifier on the data and evaluating model
     performance:  
 
 - Naïve Bayes
@@ -46,7 +45,7 @@ In this package, we analyze the text dataset as follows:
 - Support Vector Machines (kernel= radial and linear)
 - Random Forest.  
 
-6.  Comparing results: Evaluate the model performance and compare them
+7.  Comparing results: Evaluate the model performance and compare them
 
 # Usage
 

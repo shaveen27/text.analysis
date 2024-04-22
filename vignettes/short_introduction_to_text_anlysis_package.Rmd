@@ -63,32 +63,6 @@ Language Processing techniques, train some models and evaluate their performance
 . Once you have installed the package, read vignette(package = "text.analysis").
 
 
-## Data: SMSSpamCollection
-
-To explore the text analyis process of this package, we will use the dataset 
-`SMSSpamCollection`. The SMS Spam Collection is a public set of SMS labeled 
-messages that have been collected for mobile phone spam research. 
-
-```{r setup}
-library(text.analysis)
-
-data(SMSSpamCollection)
-
-#see description of the dataset
-?SMSSpamCollection
-```
-
-This dataset contains `r nrow(SMSSpamCollection)` observations and 
-`r ncol(SMSSpamCollection)` columns.
-
-```{r}
-dim(SMSSpamCollection)
-
-head(SMSSpamCollection)
-
-```
-
-
 ## Table of functions
 
 **text.analysis** provides a series of functions for each step of the text 
