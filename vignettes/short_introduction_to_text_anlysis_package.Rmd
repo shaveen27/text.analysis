@@ -42,13 +42,13 @@ articles, or any other text repositories.
 text data through statistical analysis, visualization, and summarization. This 
 helps in identifying patterns and gaining insights.
 
-5. **Model Selection:** Choose appropriate NLP models based on your problem and 
-data characteristics. Common models include: Naive Bayes, Support Vector 
-Machines, Random Forest, Logistic Regression.
-
-6. **Model Training:** Split your data into training and testing sets. Train 
+5. **Model Training:** Split your data into training and testing sets. Train 
 your chosen model(s) on the training data and tune hyperparameters to optimize 
 performance.
+
+6. **Model Selection:** Choose appropriate NLP models based on your problem and 
+data characteristics. Common models include: Naive Bayes, Support Vector 
+Machines, Random Forest, Logistic Regression.
 
 7. **Model Evaluation:** Evaluate the performance of your trained model(s) using 
 appropriate metrics for your task. For example, accuracy, precision, recall, 
@@ -57,7 +57,7 @@ F1-score, or Mean Squared Error (MSE) for regression tasks.
 
 The **text.analysis** package provides an easy structure to follow those steps:
 
-This document introduces you to the series of functions of the text.analysis 
+This document introduces you to the series of functions of the **text.analysis** 
 package that allows a user to analyze a text dataset using some common Natural 
 Language Processing techniques, train some models and evaluate their performance
 . Once you have installed the package, read vignette(package = "text.analysis").

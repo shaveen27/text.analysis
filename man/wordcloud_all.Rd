@@ -4,7 +4,7 @@
 \alias{wordcloud_all}
 \title{Function to Create Word Clouds for all dataset}
 \usage{
-wordcloud_all(corpus)
+wordcloud_all(corpus_set)
 }
 \arguments{
 \item{corpus}{clean text data file}

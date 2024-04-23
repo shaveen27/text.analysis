@@ -14,10 +14,10 @@
 #' @import tm wordcloud
 #'
 #' @export
-wordcloud_all <- function(corpus) {
+wordcloud_all <- function(corpus_set) {
   # use clean data: All messages
   wordcloud(
-    words = corpus$message,
+    words = corpus_set,
     # minimum frequency of a word is present to show
     min.freq = 100,
     # most frequent words in the center of the wordcloud
@@ -26,8 +26,7 @@ wordcloud_all <- function(corpus) {
     colors = c(
       "#00BFFF", "#836FFF", "#CAFF70", "#FF7F50", "#8B2323",
       "#fdae61", "#fee090", "#FF4040"
-    ),
-    title = "Dataset Wordcloud"
+    )
   )
 }
 
@@ -59,8 +58,7 @@ wordcloud_ham <- function(ham_set) {
     colors = c(
       "#4575b4", "#74add1", "#abd9e9", "#e0f3f8",
       "#fee090", "#fdae61", "#f46d43", "#d73027"
-    ),
-    main = "Ham Wordcloud"
+    )
   )
 }
 
@@ -92,8 +90,7 @@ wordcloud_spam <- function(spam_set) {
     colors = c(
       "#00BFFF", "#836FFF", "#CAFF70", "#FF7F50", "#8B2323",
       "#fdae61", "#fee090", "#CD1076"
-    ),
-    title = "Spam Wordcloud"
+    )
   )
 }
 
@@ -106,14 +103,20 @@ wordcloud_spam <- function(spam_set) {
 #'
 #' @export
 split_spamham <- function(data) {
+
+  if (attr(data, "class") != "email_list") {
+    stop("data should be a email_list object")
+  }
+
   # dataset: category (ham, spam) and message (texts)
-  corpus <- data.frame(data)
+  corpus <- data
   # split into spam and ham sets
+  corpus_set <- data.frame(message = corpus$message)
   spam_set <- data.frame(message = corpus$message[corpus$category == "spam"])
   ham_set <- data.frame(message = corpus$message[corpus$category == "ham"])
 
   return(list(
-    Data = corpus,
+    Data = corpus_set,
     Spam = spam_set,
     Ham = ham_set
   ))

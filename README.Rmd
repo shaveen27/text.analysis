@@ -42,23 +42,9 @@ analysis process. These functions can be organized into the following structure:
   + `read_maildf()` reads data file that contains email messages.
   + `convert_mail_list()` converts a data frame with  messages to `email_list` 
   object.
-
-**2. Explore the text dataset**
-
-  + `explore_data()` performs initial exploratory data analysis on text data.
-  + `explore_visuals()` takes the results of the `explore_data` function and 
-  creates visualizations.
-
-**3. Visualizing the corpus with word clouds**
-
-  + `wordcloud_all()` provides a visualization of the frequency of words in our 
-  corpus.
-  + `wordcloud_ham()` provides a visualization of the frequency of words in the 
-  ham subset.
-  + `wordcloud_spam()` provides a visualization of the frequency of words in the 
-  spam subset.
   
-**4. Data Preprocessing: Standardization and cleaning**  
+  
+**2. Data Preprocessing: Standardization and cleaning**  
 
   + `lower_case()` converts all messages to lower case.   
   + `remove_numbers()` removes numbers from messages.
@@ -66,21 +52,42 @@ analysis process. These functions can be organized into the following structure:
   + `remove_whitespaces()` removes extra white spaces from messages.
   + `remove_stopwords()` removes stop words from messages.
   
+
+**3. Explore the text dataset**
+
+  + `explore_data()` performs initial exploratory data analysis on text data.
+  + `explore_visuals()` takes the results of the `explore_data` function and 
+  creates visualizations.
+
+
+**4. Visualizing the corpus with word clouds**
+
+  + `split_spamham()` splits the data into three subsets: corpus, spam and ham.
+  + `wordcloud_all()` provides a visualization of the frequency of words in our 
+  corpus.
+  + `wordcloud_ham()` provides a visualization of the frequency of words in the 
+  ham subset.
+  + `wordcloud_spam()` provides a visualization of the frequency of words in the 
+  spam subset.
+  
+
 **5. Data partitioning: Creating training and testing datasets**  
 
+  + `final_model_df` creates the model matrix to use modelling process.
   + `partition()` creates training and testing data matrices.
+
 
 **6. Training a classifier on the data and evaluating model performance:**
 
   + `nb_classification()` computes accuracy measures for email data set using 
   Naïve Bayes classification model. 
-  - Logistic Regression
   + `svm_classification()` computes accuracy measures for email data set using 
   Support Vector Machine classification model. 
   + `rf_classification()` computes accuracy measures for email data set using 
   Random Forest classification model. 
   + `log_classification()` computes accuracy measures for email data set using 
-  logistic regression classification model. 
+  Logistic Regression classification model. 
+  
   
 **7. Comparing results: Evaluate the model performance and compare them**
 
@@ -121,8 +128,16 @@ collected for mobile phone spam research.
 * SMS Spam Collection: 
   https://archive.ics.uci.edu/dataset/228/sms+spam+collection  
 
+You can also find this dataset when you install the library of this package as
+follows:
 
-## Example
+``` {r}
+library(text.analysis)
+data("SMSSpamCollection")
+```
+
+
+## How to use this package
 
 Here is an example on how to use each function of this package:
 
@@ -135,7 +150,7 @@ Here is an example on how to use each function of this package:
 ``` {r}
 library(text.analysis)
 
-# Read dataset from outsides
+# Read dataset from external resources
 # data <- read_maildf(file ="path/to/file")
 
 data <- SMSSpamCollection
@@ -145,8 +160,35 @@ emailList_object <- convert_mail_list(data)
 head(data)
 ```
 
+  
+**2. Data Preprocessing: Standardization and cleaning**  
 
-**2. Explore the text dataset**
+  + We clean the text data using: `lower_case()` to convert all messages to 
+  lower case, `remove_numbers()` to remove numbers, `remove_punctuations()` to 
+  remove punctuation, `remove_whitespaces()` to remove extra white spaces from 
+  messages and `remove_stopwords()` to remove stop words from messages.
+
+``` {r}
+#Start cleaning
+clean_corpus <- lower_case(emailList_object)
+
+clean_corpus <- remove_numbers(clean_corpus)
+
+clean_corpus <- remove_punctuations(clean_corpus)
+
+clean_corpus <- remove_punctuations(clean_corpus)
+
+clean_corpus <- remove_whitespaces(clean_corpus)
+
+clean_corpus <- remove_stopwords(clean_corpus)
+
+#head(clean_corpus)
+
+```
+
+
+
+**3. Explore the text dataset**
 
   + We use the `explore_data()` function to perform the initial exploratory data 
   analysis on the text data. The outputs for this function are the following: 
@@ -154,26 +196,47 @@ head(data)
   data.
   
 ``` {r}
-# Input the data as email list object
-data_summary <- explore_data(emailList_object)
-data_summary[1:5]
+#insert here
 ```
 
   + Then, the `explore_visuals()` function takes those outputs of the 
   `explore_data` and creates some plots.
 
 ``` {r}
-plot_data <- explore_visuals(data_summary)
-plot_data
+#insert here
 ```
 
 
-**3. Visualizing the corpus with word clouds**
+**4. Visualizing the corpus with word clouds**
 
-  + We run `wordcloud_all()` to have a visualization of the frequency of words 
-  in our corpus.
+  + We run `split_spamham()` to split the text dataset into three sets: corpus
+  (all corpus), ham messages, and spam messages.
   
 ``` {r}
+corpus_data <- split_spamham(clean_corpus)
+
+#head(corpus_data)
+```
+  + We run `wordcloud_all()` to have a visualization of the frequency of words 
+  in our corpus.
+
+``` {r}
+wordcloud_all(corpus_data$Data)
+```
+
+  + We run `wordcloud_ham()` to have a visualization of the frequency of words 
+  in the ham subset.
+  
+
+``` {r}
+wordcloud_ham(corpus_data$Ham)
+```
+  
+  + We run `wordcloud_spam()` to have a visualization of the frequency of words 
+  in the spam subset.
+  
+``` {r}
+<<<<<<< Updated upstream
 split_spamham(data)
 ```
 
@@ -197,53 +260,87 @@ split_spamham(data)
 
 ``` {r}
 ```
+=======
+wordcloud_spam(corpus_data$Spam)
+
+```
+
+  
+>>>>>>> Stashed changes
 
 
 **5. Data partitioning: Creating training and testing datasets**  
 
-  + `partition()` creates training and testing data matrices.
+  + We use `final_model_df()` to create the model matrix to use modelling 
+  process. In this step, the resulting output of the function is a data matrix 
+  where the initial column denotes the message type, while the subsequent 
+  columns represent the words in the dataset.
+  + Then, we partition our clean data using the `partition()` function. This 
+  creates the training and testing data matrices. 
 
 ``` {r}
+<<<<<<< Updated upstream
+=======
+final_model_corpus <- final_model_df(clean_corpus, tol = 2)
+
+#partition
+split_data <- partition(model_df = final_model_corpus, prob = 0.7)
+
+#head(split_data)
+>>>>>>> Stashed changes
 ```
 
 
 **6. Training a classifier on the data and evaluating model performance:**
 
-  + `nb_classification()` computes accuracy measures for email data set using 
-  Naïve Bayes classification model. 
-  - Logistic Regression
-  + `svm_classification()` computes accuracy measures for email data set using 
-  Support Vector Machine classification model. 
-  + `rf_classification()` computes accuracy measures for email data set using 
-  Random Forest classification model. 
-  + `log_classification()` computes accuracy measures for email data set using 
-  logistic regression classification model. 
+  + We explore four classifiers on the data. For all of them, we compute the 
+  confusion matrix and accuracy measures:
+  
+    * Naïve Bayes: `nb_classification()` 
+    * Logistic Regression: `log_classification()`
+    * Support Vector Machine: `svm_classification()` 
+    * Random Forest: `rf_classification()`
+
+
 
 ``` {r}
+<<<<<<< Updated upstream
+=======
+#for example: Naïve Bayes classifier 
+nb_model <- nb_classification(split_data)
+
+#output for Naïve Bayes: Confusion Matrix
+nb_model$Confusion_Matrix
+>>>>>>> Stashed changes
 ```
 
+``` {r}
+#output for Naïve Bayes: Accuracy_Measures
+nb_model$Accuracy_Measures
+
+```
   
 **7. Comparing results: Evaluate the model performance and compare them**
 
+<<<<<<< Updated upstream
   + Compare the accuracy of the four classifiers.
 
 ``` {r}
 ```
+=======
+  + After running all the classifiers, we can compare their model performance.
+>>>>>>> Stashed changes
 
 
 
-
-
-
-## Example of an Analysis Report 
+## Example of a complete Analysis Report 
 
 There is a short introduction to text analysis under the folder **vignettes**.
 This shows an example on how to use this package to create an analysis report. 
-It uses the dataset above and explore the different classifier mentioned in the 
-**Table of Functions**. 
+It uses the dataset above and explore the four different classifier mentioned.
 
 
-### Information 
+## Information 
 
 * The code in this repository was written by Aloka Dayarathne, Maha Moussa, 
 Shaveen Britto, and Teresa White.
