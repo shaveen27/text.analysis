@@ -25,7 +25,7 @@ Text analysis techniques such as Natural Language Processing (NLP) can swiftly
 extract relevant information from different corpus datasets such as documents, 
 emails, SMS messages, social media and other textual resources. NLP encompasses 
 some common techniques for analyzing human language such as tokenization, 
-stemming and lemmatization, sentiment analysis and text classification.  
+sentiment analysis and text classification.  
 
 Working with text analysis using Natural Language Processing (NLP) involves 
 several steps. Here's a general guide:
@@ -38,7 +38,7 @@ analysis, or something else.
 This could be from various sources such as websites, social media, books, 
 articles, or any other text repositories.
 
-3. **Data Preprocessing:** Implement data cleaning and normalization.
+3. **Data Preprocessing:** Implement data cleaning and standardization.
    
 4. **Exploratory Data Analysis (EDA):** Understand the characteristics of your 
 text data through statistical analysis, visualization, and summarization. This 
@@ -57,18 +57,13 @@ appropriate metrics for your task. For example, accuracy, precision, recall,
 F1-score, or Mean Squared Error (MSE) for regression tasks.
 
 
-The **text.analysis** package provides an easy structure to follow those steps:
-
 This document introduces you to the series of functions of the **text.analysis** 
 package that allows a user to analyze a text dataset using some common Natural 
 Language Processing techniques, train some models and evaluate their performance
-. Once you have installed the package, read vignette(package = "text.analysis").
+.
 
 
 ## Description of Data
-
-
-Data: SMSSpamCollection
 
 To explore the text analyis process of this package, we will use the dataset 
 `SMSSpamCollection`. The SMS Spam Collection is a public set of SMS labeled 
@@ -77,44 +72,128 @@ messages that have been collected for mobile phone spam research.
 ```{r setup}
 library(text.analysis)
 
-data(SMSSpamCollection)
+#use the dataset from the library
+raw_data <- SMSSpamCollection
+
+raw_object <- convert_mail_list(data)
 
 #see description of the dataset
 ?SMSSpamCollection
 ```
 
-This dataset contains `r nrow(SMSSpamCollection)` observations and 
-`r ncol(SMSSpamCollection)` columns.
+This raw dataset contains `r nrow(SMSSpamCollection)` observations and 
+`r ncol(SMSSpamCollection)` columns: `category` and `message`. The variable 
+`category` has two classes of messages: `ham` and `spam`. The variable `message`
+shows a ham or spam text based on the `category` variable.
 
 ```{r}
-dim(SMSSpamCollection)
+#dimension of the dataset
+dim(raw_data)
 
-head(SMSSpamCollection)
+#example of some observation
+head(raw_data)
+
+```
+For the raw data, there is no missing values and there are 4827 `ham` and 747
+`spam` messages. In addition to this, the `min`, `mean` and `max` values for 
+the **word count** in the messages for the observations are `1.00`, `15.18` and 
+`171.00`, respectively. The `min`, `mean` and `max` values for the 
+**message length** for the observations are `2.00`, `77.98` and `910`, 
+respectively.
+
+```{r}
+#data exploration on the raw data
+data_exploration <- explore_data(raw_object)
+data_exploration[1:5]
 
 ```
 
+### Data Preprocessing
+
+As shown, the `message` variable of our raw data contains special characters 
+(punctuations, white spaces, numbers, etc.) which need to be removed for making 
+our analysis more efficient.
+
+In this part of our analysis, we clean our raw dataset by removing numbers, 
+punctuations, white spaces, and stop words. Also, we convert the messages to 
+lower case to implement data standardization.
+
+```{r}
+#Start cleaning
+clean_corpus <- lower_case(raw_object)
+
+clean_corpus <- remove_numbers(clean_corpus)
+
+clean_corpus <- remove_punctuations(clean_corpus)
+
+clean_corpus <- remove_whitespaces(clean_corpus)
+
+clean_corpus <- remove_stopwords(clean_corpus)
+
+```
+
+HERE
 
 ### Splitting Data
 
 
-### Data Preprocessing
+```{r}
 
 
+```
 
 ## Methods
 
+
+```{r}
+
+
+```
+
 ### Naïve Bayes classification  
+
+
+```{r}
+
+
+```
  
 ### Support Vector Machine classification 
 
+```{r}
+
+
+```
+
 ### Random Forest classification model. 
 
+
+```{r}
+
+
+```
+
 ### Logistic Regression classification model. 
+
+```{r}
+
+
+```
 
 
 ## Results
 
+```{r}
+
+
+```
+
 ## Comparison of Model
 
+
+```{r}
+
+
+```
 
 ## Discussion & Conclusions

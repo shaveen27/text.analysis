@@ -176,8 +176,6 @@ clean_corpus <- remove_numbers(clean_corpus)
 
 clean_corpus <- remove_punctuations(clean_corpus)
 
-clean_corpus <- remove_punctuations(clean_corpus)
-
 clean_corpus <- remove_whitespaces(clean_corpus)
 
 clean_corpus <- remove_stopwords(clean_corpus)
@@ -289,15 +287,15 @@ nb_model <- nb_classification(split_data)
 nb_model$Confusion_Matrix
 #>        
 #> nb_pred  ham spam
-#>    ham  1461   36
-#>    spam   10  191
+#>    ham  1464   22
+#>    spam    9  231
 ```
 
 ``` r
 #output for Naïve Bayes: Accuracy_Measures
 nb_model$Accuracy_Measures
 #>   Accuracy Precision Recall F1_Score
-#> 1   97.29%      0.95   0.84     0.89
+#> 1    98.2%      0.96   0.91     0.94
 ```
 
 **7. Comparing results: Evaluate the model performance and compare

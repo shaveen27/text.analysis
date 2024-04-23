@@ -34,8 +34,9 @@ Processing techniques, train some models and evaluate their performance.
 
 ## Table of functions
 
-The **text.analysis** package provides a series of functions for each step of the text 
-analysis process. These functions can be organized into the following structure:
+The **text.analysis** package provides a series of functions for each step of 
+the text analysis process. These functions can be organized into the following 
+structure:
 
 **1. Load Data from text files**
 
@@ -174,8 +175,6 @@ head(data)
 clean_corpus <- lower_case(emailList_object)
 
 clean_corpus <- remove_numbers(clean_corpus)
-
-clean_corpus <- remove_punctuations(clean_corpus)
 
 clean_corpus <- remove_punctuations(clean_corpus)
 
