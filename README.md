@@ -46,8 +46,8 @@ the following structure:
 
 - `explore_data()` performs initial exploratory data analysis on text
   data.
-- `explore_visuals()` takes the results of the `explore_data` function
-  and creates visualizations.
+- `explore_visuals()` creates visualizations category distribution and
+  number of words for each category.
 
 **4. Visualizing the corpus with word clouds**
 
@@ -193,15 +193,36 @@ clean_corpus <- remove_stopwords(clean_corpus)
   summary, word count summary, missing data.
 
 ``` r
-#insert here
+data_exploration <- explore_data(clean_corpus)
+data_exploration[1:5]
+#> $category_distribution
+#> categories
+#>  ham spam 
+#> 4827  747 
+#> 
+#> $message_length_summary
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>    0.00   13.00   26.00   35.05   52.00  290.00 
+#> 
+#> $word_count_summary
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>   0.000   2.000   4.000   5.787   9.000  51.000 
+#> 
+#> $missing_data_categories
+#> [1] 0
+#> 
+#> $missing_data_messages
+#> [1] 0
 ```
 
-- Then, the `explore_visuals()` function takes those outputs of the
-  `explore_data` and creates some plots.
+- Then, the `explore_visuals()` function creates visualizations category
+  distribution and number of words for each category.
 
 ``` r
-#insert here
+explore_visuals(clean_corpus)
 ```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" /><img src="man/figures/README-unnamed-chunk-8-2.png" width="100%" /><img src="man/figures/README-unnamed-chunk-8-3.png" width="100%" />
 
 **4. Visualizing the corpus with word clouds**
 
@@ -216,30 +237,20 @@ corpus_data <- split_spamham(clean_corpus)
 
 - We run `wordcloud_all()` to have a visualization of the frequency of
   words in our corpus.
-
-``` r
-wordcloud_all(corpus_data$Data)
-```
-
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
-
 - We run `wordcloud_ham()` to have a visualization of the frequency of
   words in the ham subset.
-
-``` r
-wordcloud_ham(corpus_data$Ham)
-```
-
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
-
 - We run `wordcloud_spam()` to have a visualization of the frequency of
   words in the spam subset.
 
+Here is an example running the spam set:
+
 ``` r
+#wordcloud_all(corpus_data$Data)
+#wordcloud_ham(corpus_data$Ham)
 wordcloud_spam(corpus_data$Spam)
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
 **5. Data partitioning: Creating training and testing datasets**
 
@@ -278,15 +289,15 @@ nb_model <- nb_classification(split_data)
 nb_model$Confusion_Matrix
 #>        
 #> nb_pred  ham spam
-#>    ham  1404   23
-#>    spam   12  194
+#>    ham  1461   36
+#>    spam   10  191
 ```
 
 ``` r
 #output for Naïve Bayes: Accuracy_Measures
 nb_model$Accuracy_Measures
 #>   Accuracy Precision Recall F1_Score
-#> 1   97.86%      0.94   0.89     0.92
+#> 1   97.29%      0.95   0.84     0.89
 ```
 
 **7. Comparing results: Evaluate the model performance and compare

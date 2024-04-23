@@ -56,8 +56,8 @@ analysis process. These functions can be organized into the following structure:
 **3. Explore the text dataset**
 
   + `explore_data()` performs initial exploratory data analysis on text data.
-  + `explore_visuals()` takes the results of the `explore_data` function and 
-  creates visualizations.
+  + `explore_visuals()` creates visualizations category distribution and number 
+  of words for each category.
 
 
 **4. Visualizing the corpus with word clouds**
@@ -158,6 +158,7 @@ data <- SMSSpamCollection
 emailList_object <- convert_mail_list(data)
 
 head(data)
+
 ```
 
   
@@ -196,14 +197,15 @@ clean_corpus <- remove_stopwords(clean_corpus)
   data.
   
 ``` {r}
-#insert here
+data_exploration <- explore_data(clean_corpus)
+data_exploration[1:5]
 ```
 
-  + Then, the `explore_visuals()` function takes those outputs of the 
-  `explore_data` and creates some plots.
+  + Then, the `explore_visuals()` function creates visualizations category 
+  distribution and number of words for each category.
 
 ``` {r}
-#insert here
+explore_visuals(clean_corpus)
 ```
 
 
@@ -217,56 +219,21 @@ corpus_data <- split_spamham(clean_corpus)
 
 #head(corpus_data)
 ```
+  
   + We run `wordcloud_all()` to have a visualization of the frequency of words 
   in our corpus.
-
-``` {r}
-wordcloud_all(corpus_data$Data)
-```
-
   + We run `wordcloud_ham()` to have a visualization of the frequency of words 
   in the ham subset.
-  
-
-``` {r}
-wordcloud_ham(corpus_data$Ham)
-```
-  
   + We run `wordcloud_spam()` to have a visualization of the frequency of words 
   in the spam subset.
   
-``` {r}
-<<<<<<< Updated upstream
-split_spamham(data)
-```
-
-  
-  + `wordcloud_ham()` provides a visualization of the frequency of words in the 
-  ham subset.
-  + `wordcloud_spam()` provides a visualization of the frequency of words in the 
-  spam subset.
-  
-``` {r}
-```
-
-  
-**4. Data Preprocessing: Standardization and cleaning**  
-
-  + `lower_case()` converts all messages to lower case.   
-  + `remove_numbers()` removes numbers from messages.
-  + `remove_punctuations()` removes punctuation from messages.  
-  + `remove_whitespaces()` removes extra white spaces from messages.
-  + `remove_stopwords()` removes stop words from messages.
+  Here is an example running the spam set:
 
 ``` {r}
-```
-=======
+#wordcloud_all(corpus_data$Data)
+#wordcloud_ham(corpus_data$Ham)
 wordcloud_spam(corpus_data$Spam)
-
 ```
-
-  
->>>>>>> Stashed changes
 
 
 **5. Data partitioning: Creating training and testing datasets**  
@@ -279,15 +246,12 @@ wordcloud_spam(corpus_data$Spam)
   creates the training and testing data matrices. 
 
 ``` {r}
-<<<<<<< Updated upstream
-=======
 final_model_corpus <- final_model_df(clean_corpus, tol = 2)
 
 #partition
 split_data <- partition(model_df = final_model_corpus, prob = 0.7)
 
 #head(split_data)
->>>>>>> Stashed changes
 ```
 
 
@@ -304,14 +268,11 @@ split_data <- partition(model_df = final_model_corpus, prob = 0.7)
 
 
 ``` {r}
-<<<<<<< Updated upstream
-=======
 #for example: Naïve Bayes classifier 
 nb_model <- nb_classification(split_data)
 
 #output for Naïve Bayes: Confusion Matrix
 nb_model$Confusion_Matrix
->>>>>>> Stashed changes
 ```
 
 ``` {r}
@@ -322,14 +283,7 @@ nb_model$Accuracy_Measures
   
 **7. Comparing results: Evaluate the model performance and compare them**
 
-<<<<<<< Updated upstream
-  + Compare the accuracy of the four classifiers.
-
-``` {r}
-```
-=======
   + After running all the classifiers, we can compare their model performance.
->>>>>>> Stashed changes
 
 
 

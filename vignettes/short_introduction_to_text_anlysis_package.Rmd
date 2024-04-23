@@ -19,6 +19,8 @@ set.seed(1234)
 
 # Text Analysis Overview
 
+## Introduction
+
 Text analysis techniques such as Natural Language Processing (NLP) can swiftly 
 extract relevant information from different corpus datasets such as documents, 
 emails, SMS messages, social media and other textual resources. NLP encompasses 
@@ -63,59 +65,10 @@ Language Processing techniques, train some models and evaluate their performance
 . Once you have installed the package, read vignette(package = "text.analysis").
 
 
-## Table of functions
-
-**text.analysis** provides a series of functions for each step of the text 
-analysis process. These functions can be organized into the following structure:
-
-1. Load Data from text files
-
-  + `read_maildf()` reads data file that contains email messages.
-  + `convert_mail_list()` converts a data frame with  messages to `email_list` 
-  object.
-
-2. Explore the text dataset
-
-  + `explore_data()` performs initial exploratory data analysis on text data.
-  + `explore_visuals()` takes the results of the `explore_data` function and 
-  creates visualizations.
-
-3. Visualizing the corpus with word clouds
-
-  + `wordcloud_all()` provides a visualization of the frequency of words in our 
-  corpus.
-  + `wordcloud_ham()` provides a visualization of the frequency of words in the 
-  ham subset.
-  + `wordcloud_spam()` provides a visualization of the frequency of words in the 
-  spam subset.
-  
-4. Data Preprocessing: Standardization and cleaning  
-
-  + `lower_case()` converts all messages to lower case.   
-  + `remove_numbers()` removes numbers from messages.
-  + `remove_punctuations()` removes punctuation from messages.  
-  + `remove_whitespaces()` removes extra white spaces from messages.
-  + `remove_stopwords()` removes stop words from messages.
-  
-5. Data partitioning: Creating training and testing datasets  
-
-  + `partition()` creates training and testing data matrices.
-
-6. Training a classifier on the data and evaluating model performance:  
-  + `nb_classification()` computes accuracy measures for email data set using 
-  Naïve Bayes classification model. 
-  - Logistic Regression
-  + `svm_classification()` computes accuracy measures for email data set using 
-  Support Vector Machine classification model. 
-  + `rf_classification()` computes accuracy measures for email data set using 
-  Random Forest classification model. 
-  + `log_classification()` computes accuracy measures for email data set using 
-  logistic regression classification model. 
-  
-7. Comparing results: Evaluate the model performance and compare them  
+## Description of Data
 
 
-## Data: SMSSpamCollection
+Data: SMSSpamCollection
 
 To explore the text analyis process of this package, we will use the dataset 
 `SMSSpamCollection`. The SMS Spam Collection is a public set of SMS labeled 
@@ -126,7 +79,7 @@ library(text.analysis)
 
 data(SMSSpamCollection)
 
-# see description of the dataset
+#see description of the dataset
 ?SMSSpamCollection
 ```
 
@@ -137,8 +90,31 @@ This dataset contains `r nrow(SMSSpamCollection)` observations and
 dim(SMSSpamCollection)
 
 head(SMSSpamCollection)
+
 ```
 
 
+### Splitting Data
 
 
+### Data Preprocessing
+
+
+
+## Methods
+
+### Naïve Bayes classification  
+ 
+### Support Vector Machine classification 
+
+### Random Forest classification model. 
+
+### Logistic Regression classification model. 
+
+
+## Results
+
+## Comparison of Model
+
+
+## Discussion & Conclusions
