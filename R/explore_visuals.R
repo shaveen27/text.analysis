@@ -1,21 +1,21 @@
 #' Visualize Text Data Exploration Results
 #'
-#' Takes the results of the explore_text_data function and creates
-#' visualizations.
-#' It generates plots for category distribution, message lengths, and word
-#' counts.
+#' This function takes the results of the explore_data function and creates
+#' visualizations and generates plots for category distribution, message
+#' lengths, and word counts.
 #'
 #' @param results A list containing the results from the explore_text_data
 #' function.
+#'
 #' @import ggplot2
+#'
 #' @return A list of ggplot objects representing the visualizations.
 #'
 #' @export
 explore_visuals <- function(results) {
   if (!is.list(results)) {
     stop(
-      "The input must be a list resulting from the",
-      " explore_text_data function."
+      "The input must be a list resulting from the explore_data function."
     )
   }
   plots <- list()
@@ -28,8 +28,7 @@ explore_visuals <- function(results) {
     ggplot2::ggplot(category_table, aes(
       x = "", y = "", fill =
         names(results$category_distribution)
-    ))
-  +
+    )) +
     geom_bar(stat = "identity", width = 1) +
     coord_polar(theta = "y") +
     theme_void() +

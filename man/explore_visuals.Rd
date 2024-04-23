@@ -14,8 +14,7 @@ function.}
 A list of ggplot objects representing the visualizations.
 }
 \description{
-Takes the results of the explore_text_data function and creates
-visualizations.
-It generates plots for category distribution, message lengths, and word
-counts.
+This function takes the results of the explore_data function and creates
+visualizations and generates plots for category distribution, message
+lengths, and word counts.
 }

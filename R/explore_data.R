@@ -6,23 +6,17 @@
 #' message lengths, word counts, and checks for missing values.
 #'
 #' @param email_list_obj An object of class `email_list`.
-#' @return A list containing the results of the data exploration.
-#' @export
 #'
 #' @importFrom dplyr %>%
 #' @importFrom tidyr %>%
 #'
-#' @examples
-#' data <- data.frame(category = c("ham", "spam"), message = c(
-#'   "Hello world",
-#'   "Buy now"
-#' ))
-#' email_data <- email_list(data)
-#' explore_data(email_data)
+#' @return A list containing the results of the data exploration.
+#'
+#' @export
 explore_data <- function(email_list_obj) {
   # Ensure that the object is of class 'email_list'
   if (!inherits(email_list_obj, "email_list")) {
-    stop("The provided object is not a valid 'email_list' object.")
+    stop("The provided object is not a valid email_list object.")
   }
 
   # Extract the vectors from the email_list object
