@@ -4,10 +4,12 @@
 \alias{wordcloud_spam}
 \title{Function to Create Word Clouds for all Spam messages}
 \usage{
-wordcloud_spam(spam_set)
+wordcloud_spam(spam_set, min_freq = 1)
 }
 \arguments{
 \item{spam_set}{clean spam data file}
+
+\item{min_freq}{words with minimum frequency to plot (default : 1)}
 }
 \description{
 This function will explore the "Spam" dataset with word clouds. It will
@@ -17,4 +19,36 @@ provide a visualization of the frequency of words in our corpus.
 Exploring the dataset with word clouds. This will show the frequency of words
 in our "Spam" dataset. The larger the font size is in the word cloud, the
 more frequently a word appears.
+}
+\examples{
+# raw data as a data frame
+df_raw <- data.frame(
+  type = c("ham", "spam", "ham", "ham", "spam"),
+  message = c(
+    "Hey there! how is your day going",
+    "You have won a free vacation click here to claim your prize 2",
+    "Reminder meeting today do not forget",
+    "Just wanted to say hi and see how you are doing",
+    "Your account has been compromised click here to update your password"
+  )
+)
+
+df_raw
+
+# input data list using `convert_mail_list`
+ls <- convert_mail_list(df_raw)
+
+# clean raw data to get the corpus
+ls_lower <- lower_case(ls)
+ls_nonumber <- remove_numbers(ls_lower)
+ls_nopunc <- remove_punctuations(ls_nonumber)
+ls_nospace <- remove_whitespaces(ls_nopunc)
+corpus <- remove_stopwords(ls_nospace)
+
+# extract the spam data file
+spam_set <- split_spamham(corpus)$Spam
+
+# visualize frequency of ham messages with cleaned ham data
+wordcloud_spam(spam_set)
+
 }

@@ -4,16 +4,33 @@
 #' The function `final_model_df` is designed to create the model matrix to use
 #' modelling process. It transforms each unique word in a message into a
 #' variable, tallying the frequency of each word. The resulting output of the
-#' function is a data matrix where the initial column denotes the message type,
-#' while the subsequent columns represent the words in the dataset.
+#' function is a data frame where the initial column denotes the message type,
+#' while the subsequent columns represent the words in the data set.
 #'
 #' @param data cleaned corpus
 #'
 #' @param tol a positive integer value. Used to remove the columns
 #' which the column sum less than tolerance.
 #'
-#' @return final_model_mat the data in a form of a matrix can be used for the
+#' @return final_model_df, the data in a form of a data frame can be used for
 #' modelling
+#'
+#' @examples
+#' # cleaned corpus for `final_model_df`
+#'
+#' df <- list(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "hey there how is your day going",
+#'     "you have won a free vacation click here to claim your prize",
+#'     "reminder meeting today do not forget",
+#'     "just wanted to say hi and see how you are doing",
+#'     "your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # example data frame returned from `final_model_df`
+#' final_model_df(df, 2)
 #'
 #' @export
 final_model_df <- function(data, tol) {

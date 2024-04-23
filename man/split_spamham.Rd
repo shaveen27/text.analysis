@@ -12,3 +12,32 @@ split_spamham(data)
 \description{
 This function splits the corpus into two subsets: spam and ham.
 }
+\examples{
+# raw data as a data frame
+df_raw <- data.frame(
+  type = c("ham", "spam", "ham", "ham", "spam"),
+  message = c(
+    "Hey there! how is your day going",
+    "You have won a free vacation click here to claim your prize 2",
+    "Reminder meeting today do not forget",
+    "Just wanted to say hi and see how you are doing",
+    "Your account has been compromised click here to update your password"
+  )
+)
+
+df_raw
+
+# input data list using `convert_mail_list`
+ls <- convert_mail_list(df_raw)
+
+# clean raw data to get the corpus
+ls_lower <- lower_case(ls)
+ls_nonumber <- remove_numbers(ls_lower)
+ls_nopunc <- remove_punctuations(ls_nonumber)
+ls_nospace <- remove_whitespaces(ls_nopunc)
+corpus <- remove_stopwords(ls_nospace)
+
+# split cleaned corpus into ham and spam data
+split_spamham(corpus)
+
+}

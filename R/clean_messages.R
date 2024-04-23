@@ -10,6 +10,25 @@
 #' @return a \link[text.analysis]{email_list} object with lower case
 #' characters.
 #'
+#' @examples
+#' # raw data as a data frame
+#' df_raw <- data.frame(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "Hey there! how is your day going",
+#'     "You have won a free vacation click here to claim your prize 2",
+#'     "Reminder meeting today do not forget",
+#'     "Just wanted to say hi and see how you are doing",
+#'     "Your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # input data list using `convert_mail_list`
+#' ls <- convert_mail_list(df_raw)
+#'
+#' # convert all the letters to lower case
+#' lower_case(ls)
+#'
 #' @export
 lower_case <- function(x) {
   if (attr(x, "class") != "email_list") {
@@ -32,6 +51,25 @@ lower_case <- function(x) {
 #'
 #' @return a \link[text.analysis]{email_list} object with only letters
 #' characters.
+#'
+#' @examples
+#' # raw data as a data frame
+#' df_raw <- data.frame(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "Hey there! how is your day going",
+#'     "You have won a free vacation click here to claim your prize 2",
+#'     "Reminder meeting today do not forget",
+#'     "Just wanted to say hi and see how you are doing",
+#'     "Your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # input data list using `convert_mail_list`
+#' ls <- convert_mail_list(df_raw)
+#'
+#' # remove all the numbers
+#' remove_numbers(ls)
 #'
 #' @export
 remove_numbers <- function(x) {
@@ -58,6 +96,25 @@ remove_numbers <- function(x) {
 #' @return a \link[text.analysis]{email_list} object with only letters
 #' characters.
 #'
+#' @examples
+#' # raw data as a data frame
+#' df_raw <- data.frame(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "Hey there! how is your day going",
+#'     "You have won a free vacation click here to claim your prize 2",
+#'     "Reminder meeting today do not forget",
+#'     "Just wanted to say hi and see how you are doing",
+#'     "Your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # input data list using `convert_mail_list`
+#' ls <- convert_mail_list(df_raw)
+#'
+#' # remove all the punctuations
+#' remove_punctuations(ls)
+#'
 #' @export
 remove_punctuations <- function(x) {
   # Check if the list is an email_list object
@@ -82,6 +139,25 @@ remove_punctuations <- function(x) {
 #'
 #' @return a \link[text.analysis]{email_list} object with only letters
 #' characters.
+#'
+#' @examples
+#' # raw data as a data frame
+#' df_raw <- data.frame(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "Hey there! how is your day going",
+#'     "You have won a free vacation click here to claim your prize 2",
+#'     "Reminder meeting today do not forget",
+#'     "Just wanted to say hi and see how you are doing",
+#'     "Your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # input data list using `convert_mail_list`
+#' ls <- convert_mail_list(df_raw)
+#'
+#' # remove white spaces
+#' remove_whitespaces(ls)
 #'
 #' @export
 remove_whitespaces <- function(x) {
@@ -111,6 +187,25 @@ remove_whitespaces <- function(x) {
 #'
 #' @return a \link[text.analysis]{email_list} object without stop words
 #' characters.
+#'
+#' @examples
+#' # raw data as a data frame
+#' df_raw <- data.frame(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "Hey there! how is your day going",
+#'     "You have won a free vacation click here to claim your prize 2",
+#'     "Reminder meeting today do not forget",
+#'     "Just wanted to say hi and see how you are doing",
+#'     "Your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # input data list using `convert_mail_list`
+#' ls <- convert_mail_list(df_raw)
+#'
+#' # remove all the stop words
+#' remove_stopwords(ls)
 #'
 #' @export
 remove_stopwords <- function(x) {

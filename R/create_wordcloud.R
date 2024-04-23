@@ -5,6 +5,7 @@
 #' visualization of the frequency of words in our corpus.
 #'
 #' @param corpus clean text data file
+#' @param min_freq words with minimum frequency to plot (default : 1)
 #'
 #' @details
 #' Exploring the dataset with word clouds. This will show the frequency of words
@@ -13,13 +14,47 @@
 #'
 #' @import tm wordcloud
 #'
+#' @examples
+#' # raw data as a data frame
+#' df_raw <- data.frame(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "Hey there! how is your day going",
+#'     "You have won a free vacation click here to claim your prize 2",
+#'     "Reminder meeting today do not forget",
+#'     "Just wanted to say hi and see how you are doing",
+#'     "Your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # input data list using `convert_mail_list`
+#' ls <- convert_mail_list(df_raw)
+#'
+#' # clean raw data to get the corpus
+#' ls_lower <- lower_case(ls)
+#' ls_nonumber <- remove_numbers(ls_lower)
+#' ls_nopunc <- remove_punctuations(ls_nonumber)
+#' ls_nospace <- remove_whitespaces(ls_nopunc)
+#' corpus <- remove_stopwords(ls_nospace)
+#'
+#' # visualize frequency of words with cleaned corpus
+#'
+#' wordcloud_all(corpus)
+#'
+#'
 #' @export
-wordcloud_all <- function(corpus_set) {
+
+wordcloud_all <- function(corpus, min_freq = 1) {
+
+  df <- as.data.frame(table(unlist(strsplit(corpus$message,"\\s+"))))
+
   # use clean data: All messages
   wordcloud(
-    words = corpus_set,
+    words = df$Var1,
+    freq = df$Freq,
+
     # minimum frequency of a word is present to show
-    min.freq = 100,
+    min.freq = min_freq,
     # most frequent words in the center of the wordcloud
     random.order = FALSE,
     # color font
@@ -37,6 +72,7 @@ wordcloud_all <- function(corpus_set) {
 #' provide a visualization of the frequency of words in our corpus.
 #'
 #' @param ham_set clean ham data file
+#' @param min_freq words with minimum frequency to plot (default : 1)
 #'
 #' @details
 #' Exploring the dataset with word clouds. This will show the frequency of words
@@ -45,13 +81,45 @@ wordcloud_all <- function(corpus_set) {
 #'
 #' @import tm wordcloud
 #'
+#' @examples
+#' # raw data as a data frame
+#' df_raw <- data.frame(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "Hey there! how is your day going",
+#'     "You have won a free vacation click here to claim your prize 2",
+#'     "Reminder meeting today do not forget",
+#'     "Just wanted to say hi and see how you are doing",
+#'     "Your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # input data list using `convert_mail_list`
+#' ls <- convert_mail_list(df_raw)
+#'
+#' # clean raw data to get the corpus
+#' ls_lower <- lower_case(ls)
+#' ls_nonumber <- remove_numbers(ls_lower)
+#' ls_nopunc <- remove_punctuations(ls_nonumber)
+#' ls_nospace <- remove_whitespaces(ls_nopunc)
+#' corpus <- remove_stopwords(ls_nospace)
+#'
+#' # extract the ham data file
+#' ham_set <- split_spamham(corpus)$Ham
+#'
+#' # visualize frequency of ham messages with cleaned ham data
+#' wordcloud_ham(ham_set)
+#'
 #' @export
-wordcloud_ham <- function(ham_set) {
+wordcloud_ham <- function(ham_set, min_freq = 1) {
+
+  df <- as.data.frame(table(unlist(strsplit(ham_set$message,"\\s+"))))
   # use clean data
   wordcloud(
-    words = ham_set,
+    words = df$Var1,
+    freq = df$Freq,
     # minimum frequency of a word is present to show
-    min.freq = 50,
+    min.freq = min_freq,
     # most frequent words in the center of the word cloud
     random.order = FALSE,
     # color font
@@ -69,6 +137,7 @@ wordcloud_ham <- function(ham_set) {
 #' provide a visualization of the frequency of words in our corpus.
 #'
 #' @param spam_set clean spam data file
+#' @param min_freq words with minimum frequency to plot (default : 1)
 #'
 #' @details
 #' Exploring the dataset with word clouds. This will show the frequency of words
@@ -77,13 +146,48 @@ wordcloud_ham <- function(ham_set) {
 #'
 #' @import tm wordcloud
 #'
+#' @examples
+#' # raw data as a data frame
+#' df_raw <- data.frame(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "Hey there! how is your day going",
+#'     "You have won a free vacation click here to claim your prize 2",
+#'     "Reminder meeting today do not forget",
+#'     "Just wanted to say hi and see how you are doing",
+#'     "Your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' df_raw
+#'
+#' # input data list using `convert_mail_list`
+#' ls <- convert_mail_list(df_raw)
+#'
+#' # clean raw data to get the corpus
+#' ls_lower <- lower_case(ls)
+#' ls_nonumber <- remove_numbers(ls_lower)
+#' ls_nopunc <- remove_punctuations(ls_nonumber)
+#' ls_nospace <- remove_whitespaces(ls_nopunc)
+#' corpus <- remove_stopwords(ls_nospace)
+#'
+#' # extract the spam data file
+#' spam_set <- split_spamham(corpus)$Spam
+#'
+#' # visualize frequency of ham messages with cleaned ham data
+#' wordcloud_spam(spam_set)
+#'
 #' @export
-wordcloud_spam <- function(spam_set) {
+wordcloud_spam <- function(spam_set, min_freq = 1) {
+
+  df <- as.data.frame(table(unlist(strsplit(spam_set$message,"\\s+"))))
+
   # use clean data
   wordcloud(
-    words = spam_set,
+    words = df$Var1,
+    freq = df$Freq,
     # minimum frequency of a word is present to show
-    min.freq = 50,
+    min.freq = min_freq,
     # most frequent words in the center of the wordcloud
     random.order = FALSE,
     # color font
@@ -91,7 +195,8 @@ wordcloud_spam <- function(spam_set) {
       "#00BFFF", "#836FFF", "#CAFF70", "#FF7F50", "#8B2323",
       "#fdae61", "#fee090", "#CD1076"
     )
-  )
+    )
+    #title = "Spam Wordcloud"
 }
 
 #' Function to split into spam and ham subsets
@@ -100,6 +205,34 @@ wordcloud_spam <- function(spam_set) {
 #' This function splits the corpus into two subsets: spam and ham.
 #'
 #' @param data corpus file
+#'
+#' @examples
+#' # raw data as a data frame
+#' df_raw <- data.frame(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "Hey there! how is your day going",
+#'     "You have won a free vacation click here to claim your prize 2",
+#'     "Reminder meeting today do not forget",
+#'     "Just wanted to say hi and see how you are doing",
+#'     "Your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' df_raw
+#'
+#' # input data list using `convert_mail_list`
+#' ls <- convert_mail_list(df_raw)
+#'
+#' # clean raw data to get the corpus
+#' ls_lower <- lower_case(ls)
+#' ls_nonumber <- remove_numbers(ls_lower)
+#' ls_nopunc <- remove_punctuations(ls_nonumber)
+#' ls_nospace <- remove_whitespaces(ls_nopunc)
+#' corpus <- remove_stopwords(ls_nospace)
+#'
+#' # split cleaned corpus into ham and spam data
+#' split_spamham(corpus)
 #'
 #' @export
 split_spamham <- function(data) {
@@ -110,6 +243,10 @@ split_spamham <- function(data) {
 
   # dataset: category (ham, spam) and message (texts)
   corpus <- data
+
+  # dataset: category (ham, spam) and message (texts)
+  corpus <- data.frame(unclass(data))
+
   # split into spam and ham sets
   corpus_set <- data.frame(message = corpus$message)
   spam_set <- data.frame(message = corpus$message[corpus$category == "spam"])

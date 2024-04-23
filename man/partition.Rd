@@ -17,6 +17,26 @@ a list of both train and test data sets.
 }
 \description{
 The partition function is designed to create training and testing data
-matrices using the model matrix generated from final_model_matrix. These
+using the data frame generated from final_model_df. These
 matrices are then used to train and validate the fitted model.
+}
+\examples{
+
+# cleaned corpus for `final_model_df`
+
+df <- list(
+  type = c("ham", "spam", "ham", "ham", "spam"),
+  message = c(
+    "hey there how is your day going",
+    "you have won a free vacation click here to claim your prize",
+    "reminder meeting today do not forget",
+    "just wanted to say hi and see how you are doing",
+    "your account has been compromised click here to update your password"
+  )
+)
+
+# create train and test data using `partition` function
+model_df <- final_model_df(df, 2)
+partition(model_df, 0.6)
+
 }

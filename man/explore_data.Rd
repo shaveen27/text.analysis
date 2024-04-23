@@ -18,3 +18,23 @@ contained within an email_list object.
 It returns a list containing summary statistics, distributions of categories,
 message lengths, word counts, and checks for missing values.
 }
+\examples{
+# cleaned corpus for `explore_data`
+df <- data.frame(
+  type = c("ham", "spam", "ham", "ham", "spam"),
+  message = c(
+    "hey there how is your day going",
+    "you have won a free vacation click here to claim your prize",
+    "reminder meeting today do not forget",
+    "just wanted to say hi and see how you are doing",
+    "your account has been compromised click here to update your password"
+  )
+)
+
+# convert data frame as a email list object
+email_ls_data <- email_list(df)
+
+# summarize email list data
+explore_data(email_ls_data)
+
+}

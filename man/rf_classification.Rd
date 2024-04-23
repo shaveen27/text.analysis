@@ -26,3 +26,27 @@ This function is designed to compute accuracy measures for email data set
 using Random Forest classification model. This function return the model,
 confusion matrix and accuracy measures.
 }
+\examples{
+\dontrun{
+# input data list "df"
+df <- list(
+  type = c("ham", "spam", "ham", "ham", "spam"),
+  message = c(
+    "hey there how is your day going",
+    "you have won a free vacation click here to claim your prize",
+    "reminder meeting today do not forget",
+    "just wanted to say hi and see how you are doing",
+    "your account has been compromised click here to update your password"
+  )
+)
+
+# create train and test data using partition function
+model_df <- final_model_df(df, 2)
+train_test_ls <- partition(model_df, 0.6)
+
+# run logistic regression
+rf_classification(train_test_ls)
+}
+
+
+}
