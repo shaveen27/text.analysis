@@ -135,8 +135,10 @@ Here is an example on how to use each function of this package:
 ``` {r}
 library(text.analysis)
 
-data <- read_maildf(file ="~/Documents/github/packages/text.analysis/data/SMSSpamCollection",
-                    header = FALSE, sep = "\t", quote = "")
+# Read dataset from outsides
+# data <- read_maildf(file ="path/to/file")
+
+data <- SMSSpamCollection
 
 emailList_object <- convert_mail_list(data)
 
@@ -153,7 +155,7 @@ head(data)
   data.
   
 ``` {r}
-#input the data as email list object
+# Input the data as email list object
 data_summary <- explore_data(emailList_object)
 data_summary[1:5]
 ```
