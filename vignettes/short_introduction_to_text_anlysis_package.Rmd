@@ -126,7 +126,7 @@ library(text.analysis)
 
 data(SMSSpamCollection)
 
-#see description of the dataset
+# see description of the dataset
 ?SMSSpamCollection
 ```
 
@@ -137,7 +137,6 @@ This dataset contains `r nrow(SMSSpamCollection)` observations and
 dim(SMSSpamCollection)
 
 head(SMSSpamCollection)
-
 ```
 
 

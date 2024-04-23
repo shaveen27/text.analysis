@@ -4,17 +4,17 @@
 \alias{explore_visuals}
 \title{Visualize Text Data Exploration Results}
 \usage{
-explore_visuals(results)
+explore_visuals(data, numwords = 10)
 }
 \arguments{
-\item{results}{A list containing the results from the explore_text_data
-function.}
+\item{data}{a cleaned \link[text.analysis]{email_list} object}
+
+\item{numwords}{number of words need to plot for each category (default: 10)}
 }
 \value{
-A list of ggplot objects representing the visualizations.
+pie chart for category and barcharts for each category
 }
 \description{
-This function takes the results of the explore_data function and creates
-visualizations and generates plots for category distribution, message
-lengths, and word counts.
+This function use to create visualizations category distribution and
+number of words for each category.
 }

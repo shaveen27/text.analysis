@@ -1,83 +1,50 @@
 #' Visualize Text Data Exploration Results
 #'
-#' This function takes the results of the explore_data function and creates
-#' visualizations and generates plots for category distribution, message
-#' lengths, and word counts.
+#' This function use to create visualizations category distribution and
+#' number of words for each category.
 #'
-#' @param results A list containing the results from the explore_text_data
-#' function.
+#' @param data a cleaned \link[text.analysis]{email_list} object
+#' @param numwords number of words need to plot for each category (default: 10)
 #'
-#' @import ggplot2
+#' @importFrom graphics pie barplot
+#' @importFrom grDevices rainbow
 #'
-#' @return A list of ggplot objects representing the visualizations.
+#' @return pie chart for category and barcharts for each category
 #'
 #' @export
-explore_visuals <- function(results) {
-  if (!is.list(results)) {
+explore_visuals <- function(data, numwords = 10) {
+  if (attr(data, "class") != "email_list") {
     stop(
-      "The input must be a list resulting from the explore_data function."
+      "The input must be a email_list object.",
+      call. = FALSE
     )
   }
-  plots <- list()
-  category_table <- data.frame(
-    Category = names(results$category_distribution),
-    Frequency =
-      as.integer(results$category_distribution)
-  )
-  category_distribution_plot <-
-    ggplot2::ggplot(category_table, aes(
-      x = "", y = "", fill =
-        names(results$category_distribution)
-    )) +
-    geom_bar(stat = "identity", width = 1) +
-    coord_polar(theta = "y") +
-    theme_void() +
-    labs(title = "Category Distribution") +
-    theme(
-      plot.title = element_text(hjust = 0.5, margin = margin(b = 10)),
-      panel.border = element_rect(color = "black", fill = NA, size = 1)
-    ) +
-    scale_fill_manual(values = c("#1F77B4", "lavender")) +
-    theme(legend.title = element_blank()) # Remove the legend title
 
-
-  # Visualization for message lengths distribution
-  # For message length distribution
-  message_length_plot <- ggplot2::ggplot(
-    data.frame(results$message_lengths),
-    aes(x = results$message_lengths)
-  ) +
-    geom_histogram(binwidth = 10, fill = "#1F77B4", color = "black") +
-    theme_minimal() +
-    labs(
-      title = "Message Length Distribution", x = "Length of Messages",
-      y = "Frequency "
-    ) +
-    theme(
-      plot.title = element_text(hjust = 0.5), # Center title
-      panel.border = element_rect(color = "black", fill = NA, size = 1)
-    )
-
-  # For word counts distribution
-  word_count_plot <- ggplot2::ggplot(
-    data.frame(results$word_counts),
-    aes(x = results$word_counts)
-  ) +
-    geom_histogram(binwidth = 1, fill = "#1F77B4", color = "black") +
-    theme_minimal() +
-    labs(title = "Word Count Distribution", x = "Word Count", y = "Frequency") +
-    theme(
-      plot.title = element_text(hjust = 0.5), # Center title
-      panel.border = element_rect(color = "black", fill = NA, size = 1)
-    )
-
-
-  # Combine the plots into a list and return
-  plots <- list(
-    category_distribution_plot = category_distribution_plot,
-    message_length_plot = message_length_plot,
-    word_count_plot = word_count_plot
+  # Construct Pie Chart for Categories
+  tab <- table(data$category)
+  slices <- as.vector(tab)
+  lbls <- names(tab)
+  pct <- round(slices / sum(slices) * 100, 2)
+  lbls1 <- paste(paste(lbls, pct), "%", sep = "")
+  pie(slices,
+    labels = lbls1, col = rainbow(length(lbls)),
+    main = "Pie Chart of Categories"
   )
 
-  return(plots)
+  # Construct bar chart for each category
+  df <- data.frame(unclass(data))
+
+  for (i in seq_len(length(lbls))) {
+    df1 <- subset(df, df$category == lbls[i])
+    d <- sort(
+      table(unlist(
+        strsplit(df1$message, "\\s+")
+      )),
+      decreasing = TRUE
+    )[seq_len(numwords)]
+    barplot(d,
+      col = "skyblue", xlab = "Word", ylab = "Count",
+      main = paste0(lbls[i], " Messages")
+    )
+  }
 }

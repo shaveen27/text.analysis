@@ -19,7 +19,6 @@ LinkingTo:
 Imports: 
     dplyr,
     e1071,
-    ggplot2,
     randomForest,
     Rcpp,
     tidyr,
