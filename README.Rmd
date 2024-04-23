@@ -27,59 +27,90 @@ emails, SMS messages, social media and other textual resources. NLP encompasses
 some common techniques for analyzing human language such as tokenization, 
 stemming and lemmatization, sentiment analysis and text classification.  
 
-The goal of this R package "textAnalysisR" is to provide a series of functions 
+The goal of this R package "text.analysis" is to provide a series of functions 
 that allows a user to analyze a text dataset using some common Natural Language 
 Processing techniques, train some models and evaluate their performance.  
 
-## Overview
 
-In this package, we analyze the text dataset as follows:  
+## Table of functions
 
-1. Load Data from text files (Install necessary packages) 
-2. Explore the text dataset  
-3. Visualizing the corpus with word clouds
-4. Data Preprocessing: Standardization and cleaning  
-  - Convert to lower case   
-  - Remove punctuations and numbers 
-  - Remove extra white space  
-  - Remove stop words
-5. Data partitioning: Creating training and testing datasets  
-6. Training a classifier on the data and evaluating model performance:  
-  - Naïve Bayes 
+The **text.analysis** package provides a series of functions for each step of the text 
+analysis process. These functions can be organized into the following structure:
+
+**1. Load Data from text files**
+
+  + `read_maildf()` reads data file that contains email messages.
+  + `convert_mail_list()` converts a data frame with  messages to `email_list` 
+  object.
+
+**2. Explore the text dataset**
+
+  + `explore_data()` performs initial exploratory data analysis on text data.
+  + `explore_visuals()` takes the results of the `explore_data` function and 
+  creates visualizations.
+
+**3. Visualizing the corpus with word clouds**
+
+  + `wordcloud_all()` provides a visualization of the frequency of words in our 
+  corpus.
+  + `wordcloud_ham()` provides a visualization of the frequency of words in the 
+  ham subset.
+  + `wordcloud_spam()` provides a visualization of the frequency of words in the 
+  spam subset.
+  
+**4. Data Preprocessing: Standardization and cleaning**  
+
+  + `lower_case()` converts all messages to lower case.   
+  + `remove_numbers()` removes numbers from messages.
+  + `remove_punctuations()` removes punctuation from messages.  
+  + `remove_whitespaces()` removes extra white spaces from messages.
+  + `remove_stopwords()` removes stop words from messages.
+  
+**5. Data partitioning: Creating training and testing datasets**  
+
+  + `partition()` creates training and testing data matrices.
+
+**6. Training a classifier on the data and evaluating model performance:**
+
+  + `nb_classification()` computes accuracy measures for email data set using 
+  Naïve Bayes classification model. 
   - Logistic Regression
-  - Support Vector Machines (kernel= radial and linear)
-  - Random Forest.  
-7. Comparing results: Evaluate the model performance and compare them  
+  + `svm_classification()` computes accuracy measures for email data set using 
+  Support Vector Machine classification model. 
+  + `rf_classification()` computes accuracy measures for email data set using 
+  Random Forest classification model. 
+  + `log_classification()` computes accuracy measures for email data set using 
+  logistic regression classification model. 
+  
+**7. Comparing results: Evaluate the model performance and compare them**
+
+  + Compare the accuracy of the four classifiers.
 
 
 # Usage
 
 ## Programming Language
 
-This package uses R as the main programming langauge and C++ for some scripts to
-impove speed of the package.
+This package uses R as the main programming language and C++ for some scripts to
+impove the speed of the package.
 
 ## Installation
 
-You can install the development version of textAnalysisR as follows:
+You can install the development version of **text.analysis** as follows:
 
 ``` {r}
-# install.package("text.analysis")
+# install.package("shaveen27/text.analysis")
 ```
 
-Also, to get started on using this repository, type the following into your 
-favorite git command line tool:
+To get started on using this repository, you can also type the following into 
+your favorite git command line tool:
 
 ``` {r}
 # git clone git@github.com:shaveen27/text.analysis.git
 ```
 
 The previous command will download all of the code onto your computer. You will 
-also need to download the data in study. You can find this in the *data* folder.
-
-
-# Example
-
+also need to download the data in study. 
 
 
 ## Dataset
@@ -90,11 +121,136 @@ collected for mobile phone spam research.
 * SMS Spam Collection: 
   https://archive.ics.uci.edu/dataset/228/sms+spam+collection  
 
-## Tutorial
 
-This tutorial shows an example on how to use this package. It uses the dataset 
-above and explore the different classifier mentioned in the description.
-You cna find this tutorial under the name **textAnalysis_tutorial**.
+## Example
+
+Here is an example on how to use each function of this package:
+
+**1. Load Data from text files**
+
+  + We use `read_maildf()` to read the data file that contains email messages. 
+  And we use `convert_mail_list()` to convert a data frame with  messages to 
+  and `email_list` object.
+  
+``` {r}
+library(text.analysis)
+
+data <- read_maildf(file ="~/Documents/github/packages/text.analysis/data/SMSSpamCollection",
+                    header = FALSE, sep = "\t", quote = "")
+
+emailList_object <- convert_mail_list(data)
+
+head(data)
+
+```
+
+
+**2. Explore the text dataset**
+
+  + We use the `explore_data()` function to perform the initial exploratory data 
+  analysis on the text data. The outputs for this function are the following: 
+  category distribution, message length summary, word count summary, missing 
+  data.
+  
+``` {r}
+#input the data as email list object
+data_summary <- explore_data(emailList_object)
+data_summary[1:5]
+```
+
+  + Then, the `explore_visuals()` function takes those outputs of the 
+  `explore_data` and creates some plots.
+
+``` {r}
+plot_data <- explore_visuals(data_summary)
+plot_data
+```
+
+
+**3. Visualizing the corpus with word clouds**
+
+  + We run `wordcloud_all()` to have a visualization of the frequency of words 
+  in our corpus.
+  
+``` {r}
+split_spamham(data)
+
+```
+
+  
+  + `wordcloud_ham()` provides a visualization of the frequency of words in the 
+  ham subset.
+  + `wordcloud_spam()` provides a visualization of the frequency of words in the 
+  spam subset.
+  
+``` {r}
+
+
+```
+
+  
+**4. Data Preprocessing: Standardization and cleaning**  
+
+  + `lower_case()` converts all messages to lower case.   
+  + `remove_numbers()` removes numbers from messages.
+  + `remove_punctuations()` removes punctuation from messages.  
+  + `remove_whitespaces()` removes extra white spaces from messages.
+  + `remove_stopwords()` removes stop words from messages.
+
+``` {r}
+
+
+```
+
+
+**5. Data partitioning: Creating training and testing datasets**  
+
+  + `partition()` creates training and testing data matrices.
+
+``` {r}
+
+
+```
+
+
+**6. Training a classifier on the data and evaluating model performance:**
+
+  + `nb_classification()` computes accuracy measures for email data set using 
+  Naïve Bayes classification model. 
+  - Logistic Regression
+  + `svm_classification()` computes accuracy measures for email data set using 
+  Support Vector Machine classification model. 
+  + `rf_classification()` computes accuracy measures for email data set using 
+  Random Forest classification model. 
+  + `log_classification()` computes accuracy measures for email data set using 
+  logistic regression classification model. 
+
+``` {r}
+
+
+```
+
+  
+**7. Comparing results: Evaluate the model performance and compare them**
+
+  + Compare the accuracy of the four classifiers.
+
+``` {r}
+
+
+```
+
+
+
+
+
+
+## Example of an Analysis Report 
+
+There is a short introduction to text analysis under the folder **vignettes**.
+This shows an example on how to use this package to create an analysis report. 
+It uses the dataset above and explore the different classifier mentioned in the 
+**Table of Functions**. 
 
 
 ### Information 
