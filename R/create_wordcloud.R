@@ -6,6 +6,7 @@
 #'
 #' @param corpus clean text data file
 #' @param min_freq words with minimum frequency to plot (default : 1)
+#' @param max_words maximum number of words should be plotted (default:30)
 #'
 #' @details
 #' Exploring the dataset with word clouds. This will show the frequency of words
@@ -41,10 +42,9 @@
 #'
 #' wordcloud_all(corpus)
 #'
-#'
 #' @export
 
-wordcloud_all <- function(corpus, min_freq = 1) {
+wordcloud_all <- function(corpus, min_freq = 1, max_words = 30) {
 
   df <- as.data.frame(table(unlist(strsplit(corpus$message,"\\s+"))))
 
@@ -52,9 +52,10 @@ wordcloud_all <- function(corpus, min_freq = 1) {
   wordcloud(
     words = df$Var1,
     freq = df$Freq,
-
     # minimum frequency of a word is present to show
     min.freq = min_freq,
+    # maximum number of words to plot
+    max.words = max_words,
     # most frequent words in the center of the wordcloud
     random.order = FALSE,
     # color font
@@ -73,6 +74,7 @@ wordcloud_all <- function(corpus, min_freq = 1) {
 #'
 #' @param ham_set clean ham data file
 #' @param min_freq words with minimum frequency to plot (default : 1)
+#' @param max_words maximum number of words should be plotted (default:30)
 #'
 #' @details
 #' Exploring the dataset with word clouds. This will show the frequency of words
@@ -111,17 +113,21 @@ wordcloud_all <- function(corpus, min_freq = 1) {
 #' wordcloud_ham(ham_set)
 #'
 #' @export
-wordcloud_ham <- function(ham_set, min_freq = 1) {
+wordcloud_ham <- function(ham_set, min_freq = 1, max_words = 30) {
 
   df <- as.data.frame(table(unlist(strsplit(ham_set$message,"\\s+"))))
   # use clean data
+
   wordcloud(
     words = df$Var1,
     freq = df$Freq,
     # minimum frequency of a word is present to show
     min.freq = min_freq,
+    # maximum number of words to plot
+    max.words = max_words,
     # most frequent words in the center of the word cloud
     random.order = FALSE,
+    scale = c(3,0.5),
     # color font
     colors = c(
       "#4575b4", "#74add1", "#abd9e9", "#e0f3f8",
@@ -138,6 +144,7 @@ wordcloud_ham <- function(ham_set, min_freq = 1) {
 #'
 #' @param spam_set clean spam data file
 #' @param min_freq words with minimum frequency to plot (default : 1)
+#' @param max_words maximum number of words should be plotted (default:30)
 #'
 #' @details
 #' Exploring the dataset with word clouds. This will show the frequency of words
@@ -178,7 +185,7 @@ wordcloud_ham <- function(ham_set, min_freq = 1) {
 #' wordcloud_spam(spam_set)
 #'
 #' @export
-wordcloud_spam <- function(spam_set, min_freq = 1) {
+wordcloud_spam <- function(spam_set, min_freq = 1, max_words = 30) {
 
   df <- as.data.frame(table(unlist(strsplit(spam_set$message,"\\s+"))))
 
@@ -188,6 +195,8 @@ wordcloud_spam <- function(spam_set, min_freq = 1) {
     freq = df$Freq,
     # minimum frequency of a word is present to show
     min.freq = min_freq,
+    # maximum number of words to plot
+    max.words = max_words,
     # most frequent words in the center of the wordcloud
     random.order = FALSE,
     # color font

@@ -78,8 +78,8 @@ raw_data <- SMSSpamCollection
 
 raw_object <- convert_mail_list(raw_data)
 
-#see description of the dataset
-?SMSSpamCollection
+# see description of the dataset
+# ?SMSSpamCollection
 ```
 
 This raw dataset contains `r nrow(SMSSpamCollection)` observations and 
@@ -186,12 +186,11 @@ We generate the wordcloud visualization for the `ham` and `spam` sets.
   
 ``` {r}
 corpus_data <- split_spamham(clean_corpus)
-
 ```
 
 ``` {r}
 #wordcloud for the ham set
-wordcloud_ham(corpus_data$Ham, min_freq = 250)
+wordcloud_ham(corpus_data$Ham, min_freq = 50)
 
 ```
 

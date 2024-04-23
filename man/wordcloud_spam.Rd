@@ -4,12 +4,14 @@
 \alias{wordcloud_spam}
 \title{Function to Create Word Clouds for all Spam messages}
 \usage{
-wordcloud_spam(spam_set, min_freq = 1)
+wordcloud_spam(spam_set, min_freq = 1, max_words = 30)
 }
 \arguments{
 \item{spam_set}{clean spam data file}
 
 \item{min_freq}{words with minimum frequency to plot (default : 1)}
+
+\item{max_words}{maximum number of words should be plotted (default:30)}
 }
 \description{
 This function will explore the "Spam" dataset with word clouds. It will

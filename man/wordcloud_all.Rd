@@ -4,12 +4,14 @@
 \alias{wordcloud_all}
 \title{Function to Create Word Clouds for all dataset}
 \usage{
-wordcloud_all(corpus, min_freq = 1)
+wordcloud_all(corpus, min_freq = 1, max_words = 30)
 }
 \arguments{
 \item{corpus}{clean text data file}
 
 \item{min_freq}{words with minimum frequency to plot (default : 1)}
+
+\item{max_words}{maximum number of words should be plotted (default:30)}
 }
 \description{
 This function will explore the dataset with word clouds. It will provide a
@@ -46,6 +48,5 @@ corpus <- remove_stopwords(ls_nospace)
 # visualize frequency of words with cleaned corpus
 
 wordcloud_all(corpus)
-
 
 }
