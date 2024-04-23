@@ -38,7 +38,8 @@ analysis, or something else.
 This could be from various sources such as websites, social media, books, 
 articles, or any other text repositories.
 
-3. **Data Preprocessing:** Implement data cleaning and standardization.
+3. **Data Preprocessing:** Implement data cleaning, normalization and 
+standardization.
    
 4. **Exploratory Data Analysis (EDA):** Understand the characteristics of your 
 text data through statistical analysis, visualization, and summarization. This 
@@ -75,7 +76,7 @@ library(text.analysis)
 #use the dataset from the library
 raw_data <- SMSSpamCollection
 
-raw_object <- convert_mail_list(data)
+raw_object <- convert_mail_list(raw_data)
 
 #see description of the dataset
 ?SMSSpamCollection
@@ -108,15 +109,17 @@ data_exploration[1:5]
 
 ```
 
-### Data Preprocessing
+## Data Preprocessing
 
-As shown, the `message` variable of our raw data contains special characters 
-(punctuations, white spaces, numbers, etc.) which need to be removed for making 
-our analysis more efficient.
+The `message` feature in the raw dataset contains extraneous elements such as 
+punctuation marks, whitespace characters, and numeric digits. These superfluous 
+components can impede efficient analysis and modeling. Therefore, we want to 
+remove these unnecessary elements.
 
-In this part of our analysis, we clean our raw dataset by removing numbers, 
-punctuations, white spaces, and stop words. Also, we convert the messages to 
-lower case to implement data standardization.
+In this phase of the analysis, we perform a comprehensive cleaning of the raw 
+dataset by removing numeric values, punctuations, and stop words. We convert the 
+text messages to lower case to implement data standardization. Also, we remove 
+the white spaces to implement normalization.
 
 ```{r}
 #Start cleaning
@@ -130,9 +133,81 @@ clean_corpus <- remove_whitespaces(clean_corpus)
 
 clean_corpus <- remove_stopwords(clean_corpus)
 
+#head(clean_corpus)
+
 ```
 
-HERE
+
+Now we explore the clean dataset in a similar way we did for the raw data.
+
+```{r}
+#data exploration on the raw data
+data_exploration <- explore_data(clean_corpus)
+data_exploration[1:5]
+```
+We see that for the clean data, the `min`, `mean` and `max` values for 
+the **word count** in the messages for the observations are `0.00`, `5.79` and 
+`51.00`, respectively. The `min`, `mean` and `max` values for the 
+**message length** for the observations are `0.00`, `35.05` and `290`, 
+respectively. All the values are lower than for the raw data because of the 
+cleaning implementation.
+
+
+## Data Visualization
+
+### Chart visualizatiom
+
+Here are some visualization for the data exploration:
+
+* The pie chart shows the total percentage of both classes: `ham` and `spam`. We 
+see that 86.6% are classified as ham messages and 13.4% as spam messages.
+* The bar charts show the 10 top more frequent words for the `ham` and `spam` 
+messages. 
+* For the `ham` messages, we have the following top words in a decreasing order: 
+good, day, love, time, ü, lor, today, dont, send, pls. 
+* For the `spam` messages, we have the following top words in a decreasing order
+free, txt, mobile, text, claim, reply, prize, cash, nokia, send.
+
+
+``` {r}
+#explore clean data
+explore_visuals(clean_corpus)
+```
+
+
+### Wordcloud visualization
+
+Word clouds provide a visual representation of the most frequently occurring 
+words or terms in a text corpus. This visualization tool will help us quickly 
+identify the key words within the text data. It gives us a high-level overview 
+of the prominent words. 
+
+We generate the wordcloud visualization for the `ham` and `spam` sets.
+  
+``` {r}
+corpus_data <- split_spamham(clean_corpus)
+
+```
+
+``` {r}
+#wordcloud for the ham set
+wordcloud_ham(corpus_data$Ham, min_freq = 250)
+
+```
+
+```{r}
+#wordcloud for the spam set
+wordcloud_spam(corpus_data$Spam, min_freq = 50)
+
+```
+
+By generating wordclouds for different subsets of the text data (ham and spam 
+sets), we can compare and contrast the prominent words, potentially revealing 
+insights into changing trends or preferences.
+
+As we can see, the 10 top words for both sets appear on these wordcloud 
+visualizations as well.
+
 
 ### Splitting Data
 

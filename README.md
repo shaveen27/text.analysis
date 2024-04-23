@@ -243,9 +243,9 @@ corpus_data <- split_spamham(clean_corpus)
 Here is an example running the spam set:
 
 ``` r
-#wordcloud_all(corpus_data$Data)
-#wordcloud_ham(corpus_data$Ham)
-wordcloud_spam(corpus_data$Spam)
+#wordcloud_all(corpus_data$Data, min_freq = 100)
+#wordcloud_ham(corpus_data$Ham, min_freq = 50)
+wordcloud_spam(corpus_data$Spam, min_freq = 100)
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
@@ -287,15 +287,15 @@ nb_model <- nb_classification(split_data)
 nb_model$Confusion_Matrix
 #>        
 #> nb_pred  ham spam
-#>    ham  1464   22
-#>    spam    9  231
+#>    ham  1461   23
+#>    spam   11  194
 ```
 
 ``` r
 #output for Naïve Bayes: Accuracy_Measures
 nb_model$Accuracy_Measures
 #>   Accuracy Precision Recall F1_Score
-#> 1    98.2%      0.96   0.91     0.94
+#> 1   97.99%      0.95   0.89     0.92
 ```
 
 **7. Comparing results: Evaluate the model performance and compare
