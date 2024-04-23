@@ -1,9 +1,9 @@
-#' Explore Text Data for email_list
+#' Function to Explore Text Data for email_list
 #'
 #' This function performs initial exploratory data analysis on text data
-#' contained within an email_list object.
-#' It returns a list containing summary statistics, distributions of categories,
-#' message lengths, word counts, and checks for missing values.
+#' contained within an email_list object. It returns a list containing summary
+#' statistics, distributions of categories, message lengths, word counts, and
+#' checks for missing values.
 #'
 #' @param email_list_obj An object of class `email_list`.
 #'

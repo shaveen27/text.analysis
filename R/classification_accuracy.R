@@ -49,7 +49,7 @@ count_convert_num <- function(x) {
 #' model_df <- final_model_df(df, 2)
 #' train_test_ls <- partition(model_df, 0.6)
 #'
-#' # run logistic regression
+#' # run Naive-Bayes Model
 #' nb_classification(train_test_ls)
 #' }
 #'
@@ -130,10 +130,9 @@ nb_classification <- function(data, laplace = 0, ...) {
 #' model_df <- final_model_df(df, 2)
 #' train_test_ls <- partition(model_df, 0.6)
 #'
-#' # run logistic regression
+#' # run SVM with RBF Kernel
 #' svm_classification(train_test_ls)
 #' }
-#'
 #'
 #' @export
 svm_classification <- function(data, kernel = "radial",
@@ -227,7 +226,7 @@ svm_classification <- function(data, kernel = "radial",
 #' model_df <- final_model_df(df, 2)
 #' train_test_ls <- partition(model_df, 0.6)
 #'
-#' # run logistic regression
+#' # run RandomForest Classifier
 #' rf_classification(train_test_ls)
 #' }
 #'
@@ -307,7 +306,7 @@ rf_classification <- function(data, ntree = 500,
 #' model_df <- final_model_df(df, 2)
 #' train_test_ls <- partition(model_df, 0.6)
 #'
-#' # run logistic regression
+#' # run Logistic Regression Model
 #' log_classification(train_test_ls)
 #' }
 #'

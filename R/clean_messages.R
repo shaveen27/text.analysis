@@ -41,7 +41,7 @@ lower_case <- function(x) {
   x
 }
 
-#' Function to make remove all numbers from messages
+#' Function to remove all numbers from messages
 #'
 #' @description
 #' The function `remove_numbers` is design to remove all numbers from
@@ -85,7 +85,7 @@ remove_numbers <- function(x) {
   x
 }
 
-#' Function to make remove all punctuations from messages
+#' Function to remove all punctuations from messages
 #'
 #' @description
 #' The function `remove_punctuations` is design to remove all punctuations from
@@ -129,7 +129,7 @@ remove_punctuations <- function(x) {
   x
 }
 
-#' Function to make remove extra white spaces from messages
+#' Function to remove extra white spaces from messages
 #'
 #' @description
 #' The function `remove_whitespaces` is design to remove all extra white spaces

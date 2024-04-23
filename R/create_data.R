@@ -1,11 +1,12 @@
 #' Function to create Final model matrix
 #'
 #' @description
-#' The function `final_model_df` is designed to create the model matrix to use
-#' modelling process. It transforms each unique word in a message into a
-#' variable, tallying the frequency of each word. The resulting output of the
-#' function is a data frame where the initial column denotes the message type,
-#' while the subsequent columns represent the words in the data set.
+#' The function `final_model_df` is designed to create the
+#' model matrix to use modelling process. It transforms each unique word in a
+#' message into a variable, tallying the frequency of each word. The resulting
+#' output of the function is a data frame where the initial column denotes the
+#' message type, while the subsequent columns represent the words in the data
+#' set.
 #'
 #' @param data cleaned corpus
 #'

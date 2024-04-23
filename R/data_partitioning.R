@@ -1,15 +1,15 @@
-#' Data partitioning for train and test cross validation
+#' Function to train test split
 #'
 #' @description
 #' The partition function is designed to create training and testing data
-#' using the data frame generated from final_model_df. These
-#' matrices are then used to train and validate the fitted model.
+#' using the data frame generated from \link[text.analysis]{final_model_df}.
+#' These matrices are then used to train and validate the fitted model.
 #'
-#' @param model_df final data frame created using `final_model_df`
-#' function
+#' @param model_df final data frame created using
+#' \link[text.analysis]{final_model_df} function
 #' @param prob probability of ham/spam messages to include in the train data.
 #'
-#' @return a list of both train and test data sets.
+#' @return a list of length 2 with both train and test data sets.
 #'
 #' @examples
 #'

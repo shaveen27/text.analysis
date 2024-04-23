@@ -40,7 +40,7 @@ df <- list(
 model_df <- final_model_df(df, 2)
 train_test_ls <- partition(model_df, 0.6)
 
-# run logistic regression
+# run Naive-Bayes Model
 nb_classification(train_test_ls)
 }
 
