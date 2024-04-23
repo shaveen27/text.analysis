@@ -31,6 +31,28 @@ count_convert_num <- function(x) {
 #'
 #' @return \link[base]{list} with length 3
 #'
+#' @examples
+#' \dontrun{
+#' # input data list "df"
+#' df <- list(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "hey there how is your day going",
+#'     "you have won a free vacation click here to claim your prize",
+#'     "reminder meeting today do not forget",
+#'     "just wanted to say hi and see how you are doing",
+#'     "your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # create train and test data using partition function
+#' model_df <- final_model_df(df, 2)
+#' train_test_ls <- partition(model_df, 0.6)
+#'
+#' # run Naive-Bayes Model
+#' nb_classification(train_test_ls)
+#' }
+#'
 #' @export
 nb_classification <- function(data, laplace = 0, ...) {
   # Convert the train set
@@ -89,6 +111,28 @@ nb_classification <- function(data, laplace = 0, ...) {
 #' @importFrom e1071 svm
 #'
 #' @return \link[base]{list} with length 3
+#'
+#' @examples
+#' \dontrun{
+#' # input data list "df"
+#' df <- list(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "hey there how is your day going",
+#'     "you have won a free vacation click here to claim your prize",
+#'     "reminder meeting today do not forget",
+#'     "just wanted to say hi and see how you are doing",
+#'     "your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # create train and test data using partition function
+#' model_df <- final_model_df(df, 2)
+#' train_test_ls <- partition(model_df, 0.6)
+#'
+#' # run SVM with RBF Kernel
+#' svm_classification(train_test_ls)
+#' }
 #'
 #' @export
 svm_classification <- function(data, kernel = "radial",
@@ -164,6 +208,29 @@ svm_classification <- function(data, kernel = "radial",
 #'
 #' @return \link[base]{list} with length 3
 #'
+#' @examples
+#' \dontrun{
+#' # input data list "df"
+#' df <- list(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "hey there how is your day going",
+#'     "you have won a free vacation click here to claim your prize",
+#'     "reminder meeting today do not forget",
+#'     "just wanted to say hi and see how you are doing",
+#'     "your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # create train and test data using partition function
+#' model_df <- final_model_df(df, 2)
+#' train_test_ls <- partition(model_df, 0.6)
+#'
+#' # run RandomForest Classifier
+#' rf_classification(train_test_ls)
+#' }
+#'
+#'
 #' @export
 rf_classification <- function(data, ntree = 500,
                               mtry = sqrt(ncol(data$train)), ...) {
@@ -220,6 +287,29 @@ rf_classification <- function(data, ntree = 500,
 #' @return \link[base]{list} with length 3
 #'
 #' @importFrom stats binomial glm predict
+#'
+#' @examples
+#' \dontrun{
+#' # input data list "df"
+#' df <- list(
+#'   type = c("ham", "spam", "ham", "ham", "spam"),
+#'   message = c(
+#'     "hey there how is your day going",
+#'     "you have won a free vacation click here to claim your prize",
+#'     "reminder meeting today do not forget",
+#'     "just wanted to say hi and see how you are doing",
+#'     "your account has been compromised click here to update your password"
+#'   )
+#' )
+#'
+#' # create train and test data using partition function
+#' model_df <- final_model_df(df, 2)
+#' train_test_ls <- partition(model_df, 0.6)
+#'
+#' # run Logistic Regression Model
+#' log_classification(train_test_ls)
+#' }
+#'
 #'
 #' @export
 log_classification <- function(data, threshold = 0.5) {

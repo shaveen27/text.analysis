@@ -196,7 +196,6 @@ wordcloud_spam <- function(spam_set, min_freq = 1) {
       "#fdae61", "#fee090", "#CD1076"
     )
   )
-  #title = "Spam Wordcloud"
 }
 
 #' Function to split into spam and ham subsets

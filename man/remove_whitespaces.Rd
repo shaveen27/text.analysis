@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_messages.R
 \name{remove_whitespaces}
 \alias{remove_whitespaces}
-\title{Function to make remove extra white spaces from messages}
+\title{Function to remove extra white spaces from messages}
 \usage{
 remove_whitespaces(x)
 }
@@ -16,4 +16,24 @@ characters.
 \description{
 The function \code{remove_whitespaces} is design to remove all extra white spaces
 from \link[text.analysis]{email_list} character vectors.
+}
+\examples{
+# raw data as a data frame
+df_raw <- data.frame(
+  type = c("ham", "spam", "ham", "ham", "spam"),
+  message = c(
+    "Hey there! how is your day going",
+    "You have won a free vacation click here to claim your prize 2",
+    "Reminder meeting today do not forget",
+    "Just wanted to say hi and see how you are doing",
+    "Your account has been compromised click here to update your password"
+  )
+)
+
+# input data list using `convert_mail_list`
+ls <- convert_mail_list(df_raw)
+
+# remove white spaces
+remove_whitespaces(ls)
+
 }
