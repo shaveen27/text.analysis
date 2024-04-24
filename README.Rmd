@@ -107,14 +107,15 @@ impove the speed of the package.
 
 You can install the development version of **text.analysis** as follows:
 
-``` {r}
+``` r
 # install.package("shaveen27/text.analysis")
+devtools::install_github("shaveen27/text.analysis")
 ```
 
 To get started on using this repository, you can also type the following into 
 your favorite git command line tool:
 
-``` {r}
+``` r
 # git clone git@github.com:shaveen27/text.analysis.git
 ```
 

@@ -6,7 +6,7 @@ Authors@R: c(
     person("Maha", "Moussa", email = "maha.moussa@usu.edu", role = "aut"),
     person("Shaveen", "Britto", email = "a02422036@usu.edu", role = "ctb"),
     person("Teresa", "White", email = "teresa.white@usu.edu", role = "fnd"))
-Description: The goal of this R package "textAnalysisR" is to provide a series 
+Description: The goal of this R package "text.analysis" is to provide a series 
     of functions that allows a user to analyze a text dataset using some common 
     Natural Language Processing techniques, train some models and evaluate their 
     performance.

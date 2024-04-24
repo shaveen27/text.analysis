@@ -66,8 +66,8 @@ Language Processing techniques, train some models and evaluate their performance
 
 ## Description of Data
 
-To explore the text analyis process of this package, we will use the dataset 
-`SMSSpamCollection`. The SMS Spam Collection is a public set of SMS labeled 
+To explore the text analysis process of this package, we will use the dataset 
+`sms_spam_collection`. The SMS Spam Collection is a public set of SMS labeled 
 messages that have been collected for mobile phone spam research. 
 
 ```{r setup}

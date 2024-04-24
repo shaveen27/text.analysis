@@ -97,6 +97,7 @@ You can install the development version of **text.analysis** as follows:
 
 ``` r
 # install.package("shaveen27/text.analysis")
+devtools::install_github("shaveen27/text.analysis")
 ```
 
 To get started on using this repository, you can also type the following
@@ -222,7 +223,7 @@ data_exploration[1:5]
 explore_visuals(clean_corpus)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" /><img src="man/figures/README-unnamed-chunk-8-2.png" width="100%" /><img src="man/figures/README-unnamed-chunk-8-3.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" /><img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" /><img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" />
 
 **4. Visualizing the corpus with word clouds**
 
@@ -250,7 +251,7 @@ Here is an example running the spam set:
 wordcloud_spam(corpus_data$Spam, min_freq = 50)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 **5. Data partitioning: Creating training and testing datasets**
 
@@ -289,15 +290,15 @@ nb_model <- nb_classification(split_data)
 nb_model$Confusion_Matrix
 #>        
 #> nb_pred  ham spam
-#>    ham  1416   19
-#>    spam   10  184
+#>    ham  1409   16
+#>    spam   12  181
 ```
 
 ``` r
 # output for Naïve Bayes: Accuracy_Measures
 nb_model$Accuracy_Measures
 #>   Accuracy Precision Recall F1_Score
-#> 1   98.22%      0.95   0.91     0.93
+#> 1   98.27%      0.94   0.92     0.93
 ```
 
 **7. Comparing results: Evaluate the model performance and compare
