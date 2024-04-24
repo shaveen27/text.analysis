@@ -48,5 +48,4 @@ train_test_ls <- partition(model_df, 0.6)
 rf_classification(train_test_ls)
 }
 
-
 }

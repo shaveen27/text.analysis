@@ -41,5 +41,4 @@ train_test_ls <- partition(model_df, 0.6)
 log_classification(train_test_ls)
 }
 
-
 }

@@ -15,8 +15,8 @@ explore_visuals(data, numwords = 10)
 pie chart for category and barcharts for each category
 }
 \description{
-This function use to create visualizations for distribution of the category variable
-and number of words for each category.
+This function use to create visualizations for distribution of the category
+variable and number of words for each category.
 }
 \examples{
 # raw data as a data frame

@@ -4,6 +4,8 @@
 # Text Analysis R Package
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/shaveen27/text.analysis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/shaveen27/text.analysis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # Description
@@ -169,7 +171,7 @@ head(data)
   remove stop words from messages.
 
 ``` r
-#Start cleaning
+# Start cleaning
 clean_corpus <- lower_case(emailList_object)
 
 clean_corpus <- remove_numbers(clean_corpus)
@@ -180,7 +182,7 @@ clean_corpus <- remove_whitespaces(clean_corpus)
 
 clean_corpus <- remove_stopwords(clean_corpus)
 
-#head(clean_corpus)
+# head(clean_corpus)
 ```
 
 **3. Explore the text dataset**
@@ -230,7 +232,7 @@ explore_visuals(clean_corpus)
 ``` r
 corpus_data <- split_spamham(clean_corpus)
 
-#head(corpus_data)
+# head(corpus_data)
 ```
 
 - We run `wordcloud_all()` to have a visualization of the frequency of
@@ -243,9 +245,9 @@ corpus_data <- split_spamham(clean_corpus)
 Here is an example running the spam set:
 
 ``` r
-#wordcloud_all(corpus_data$Data, min_freq = 100)
-#wordcloud_ham(corpus_data$Ham, min_freq = 50)
-wordcloud_spam(corpus_data$Spam, min_freq = 100)
+# wordcloud_all(corpus_data$Data, min_freq = 100)
+# wordcloud_ham(corpus_data$Ham, min_freq = 50)
+wordcloud_spam(corpus_data$Spam, min_freq = 50)
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
@@ -262,10 +264,10 @@ wordcloud_spam(corpus_data$Spam, min_freq = 100)
 ``` r
 final_model_corpus <- final_model_df(clean_corpus, tol = 2)
 
-#partition
+# partition
 split_data <- partition(model_df = final_model_corpus, prob = 0.7)
 
-#head(split_data)
+# head(split_data)
 ```
 
 **6. Training a classifier on the data and evaluating model
@@ -280,22 +282,22 @@ performance:**
   - Random Forest: `rf_classification()`
 
 ``` r
-#for example: Naïve Bayes classifier 
+# for example: Naïve Bayes classifier
 nb_model <- nb_classification(split_data)
 
-#output for Naïve Bayes: Confusion Matrix
+# output for Naïve Bayes: Confusion Matrix
 nb_model$Confusion_Matrix
 #>        
 #> nb_pred  ham spam
-#>    ham  1461   23
-#>    spam   11  194
+#>    ham  1460   31
+#>    spam   10  202
 ```
 
 ``` r
-#output for Naïve Bayes: Accuracy_Measures
+# output for Naïve Bayes: Accuracy_Measures
 nb_model$Accuracy_Measures
 #>   Accuracy Precision Recall F1_Score
-#> 1   97.99%      0.95   0.89     0.92
+#> 1   97.59%      0.95   0.87     0.91
 ```
 
 **7. Comparing results: Evaluate the model performance and compare

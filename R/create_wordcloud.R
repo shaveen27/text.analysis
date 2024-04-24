@@ -45,8 +45,7 @@
 #' @export
 
 wordcloud_all <- function(corpus, min_freq = 1, max_words = 30) {
-
-  df <- as.data.frame(table(unlist(strsplit(corpus$message,"\\s+"))))
+  df <- as.data.frame(table(unlist(strsplit(corpus$message, "\\s+"))))
 
   # use clean data: All messages
   wordcloud(
@@ -114,8 +113,7 @@ wordcloud_all <- function(corpus, min_freq = 1, max_words = 30) {
 #'
 #' @export
 wordcloud_ham <- function(ham_set, min_freq = 1, max_words = 30) {
-
-  df <- as.data.frame(table(unlist(strsplit(ham_set$message,"\\s+"))))
+  df <- as.data.frame(table(unlist(strsplit(ham_set$message, "\\s+"))))
   # use clean data
 
   wordcloud(
@@ -127,7 +125,7 @@ wordcloud_ham <- function(ham_set, min_freq = 1, max_words = 30) {
     max.words = max_words,
     # most frequent words in the center of the word cloud
     random.order = FALSE,
-    scale = c(3,0.5),
+    scale = c(2.5, 0.5),
     # color font
     colors = c(
       "#4575b4", "#74add1", "#abd9e9", "#e0f3f8",
@@ -186,8 +184,7 @@ wordcloud_ham <- function(ham_set, min_freq = 1, max_words = 30) {
 #'
 #' @export
 wordcloud_spam <- function(spam_set, min_freq = 1, max_words = 30) {
-
-  df <- as.data.frame(table(unlist(strsplit(spam_set$message,"\\s+"))))
+  df <- as.data.frame(table(unlist(strsplit(spam_set$message, "\\s+"))))
 
   # use clean data
   wordcloud(
@@ -244,7 +241,6 @@ wordcloud_spam <- function(spam_set, min_freq = 1, max_words = 30) {
 #'
 #' @export
 split_spamham <- function(data) {
-
   if (attr(data, "class") != "email_list") {
     stop("data should be a email_list object")
   }

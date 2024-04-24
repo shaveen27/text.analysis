@@ -230,7 +230,6 @@ svm_classification <- function(data, kernel = "radial",
 #' rf_classification(train_test_ls)
 #' }
 #'
-#'
 #' @export
 rf_classification <- function(data, ntree = 500,
                               mtry = sqrt(ncol(data$train)), ...) {
@@ -309,7 +308,6 @@ rf_classification <- function(data, ntree = 500,
 #' # run Logistic Regression Model
 #' log_classification(train_test_ls)
 #' }
-#'
 #'
 #' @export
 log_classification <- function(data, threshold = 0.5) {

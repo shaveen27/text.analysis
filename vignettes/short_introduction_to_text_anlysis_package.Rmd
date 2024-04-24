@@ -73,7 +73,7 @@ messages that have been collected for mobile phone spam research.
 ```{r setup}
 library(text.analysis)
 
-#use the dataset from the library
+# use the dataset from the library
 raw_data <- SMSSpamCollection
 
 raw_object <- convert_mail_list(raw_data)
@@ -88,12 +88,11 @@ This raw dataset contains `r nrow(SMSSpamCollection)` observations and
 shows a ham or spam text based on the `category` variable.
 
 ```{r}
-#dimension of the dataset
+# dimension of the dataset
 dim(raw_data)
 
-#example of some observation
+# example of some observation
 head(raw_data)
-
 ```
 For the raw data, there is no missing values and there are 4827 `ham` and 747
 `spam` messages. In addition to this, the `min`, `mean` and `max` values for 
@@ -103,10 +102,9 @@ the **word count** in the messages for the observations are `1.00`, `15.18` and
 respectively.
 
 ```{r}
-#data exploration on the raw data
+# data exploration on the raw data
 data_exploration <- explore_data(raw_object)
 data_exploration[1:5]
-
 ```
 
 ## Data Preprocessing
@@ -122,7 +120,7 @@ text messages to lower case to implement data standardization. Also, we remove
 the white spaces to implement normalization.
 
 ```{r}
-#Start cleaning
+# Start cleaning
 clean_corpus <- lower_case(raw_object)
 
 clean_corpus <- remove_numbers(clean_corpus)
@@ -132,16 +130,13 @@ clean_corpus <- remove_punctuations(clean_corpus)
 clean_corpus <- remove_whitespaces(clean_corpus)
 
 clean_corpus <- remove_stopwords(clean_corpus)
-
-#head(clean_corpus)
-
 ```
 
 
 Now we explore the clean dataset in a similar way we did for the raw data.
 
 ```{r}
-#data exploration on the raw data
+# data exploration on the raw data
 data_exploration <- explore_data(clean_corpus)
 data_exploration[1:5]
 ```
@@ -170,7 +165,7 @@ free, txt, mobile, text, claim, reply, prize, cash, nokia, send.
 
 
 ``` {r}
-#explore clean data
+# explore clean data
 explore_visuals(clean_corpus)
 ```
 
@@ -185,19 +180,20 @@ of the prominent words.
 We generate the wordcloud visualization for the `ham` and `spam` sets.
   
 ``` {r}
+# split the observations in ham, spam and all messages.
 corpus_data <- split_spamham(clean_corpus)
+
+# output: $Data, $Ham, $Spam
 ```
 
 ``` {r}
-#wordcloud for the ham set
+# wordcloud for the ham set
 wordcloud_ham(corpus_data$Ham, min_freq = 50)
-
 ```
 
 ```{r}
-#wordcloud for the spam set
+# wordcloud for the spam set
 wordcloud_spam(corpus_data$Spam, min_freq = 50)
-
 ```
 
 By generating wordclouds for different subsets of the text data (ham and spam 
@@ -208,66 +204,309 @@ As we can see, the 10 top words for both sets appear on these wordcloud
 visualizations as well.
 
 
-### Splitting Data
+## Splitting Data
 
+We split data into training, and test sets for several important reasons for 
+modelling. One of the reasons is to avoid overfitting. By separating the data 
+used to train the model (training set) from the data used to evaluate its 
+performance (test sets), we can assess how well the model generalizes to unseen 
+data. This helps prevent overfitting, where the model learns the noise and 
+peculiarities of the training data too closely, leading to poor performance on 
+new data. We also use some default hyperparameter Tuning to select the best 
+performing model to avoid overfitting and ensure the model's generalization 
+capability.
 
-```{r}
+We create the model matrix to use modelling process. In this step, the resulting 
+output of the function is a data matrix where the initial column denotes the 
+message type, while the subsequent columns represent the words in the dataset.
+Then, we partition our clean data as follows: 70% training and 30% test sets. 
+This split creates the training and test data matrices. 
 
+``` {r}
+# model matrix
+final_model_corpus <- final_model_df(clean_corpus, tol = 10)
 
+set.seed(1234)
+# partition
+split_data <- partition(model_df = final_model_corpus, prob = 0.7)
 ```
 
-## Methods
 
-
-```{r}
-
-
-```
-
-### Naïve Bayes classification  
-
+Here is a table with the number of observations for the training and test sets:
 
 ```{r}
+# Print the table
+split_table <- matrix(c(3379, 523, 3902, 1448, 224, 1672, 4827, 747, 5574),
+  nrow = 3, ncol = 3
+)
 
+# Assign row and column names
+row_names <- c("Ham", "Spam", "Total")
+col_names <- c("Training", "Test", "Dataset")
+dimnames(split_table) <- list(row_names, col_names)
 
-```
- 
-### Support Vector Machine classification 
-
-```{r}
-
-
-```
-
-### Random Forest classification model. 
-
-
-```{r}
-
-
+# Print the matrix
+split_table
 ```
 
-### Logistic Regression classification model. 
-
-```{r}
+## Classification Models
 
 
-```
+We applied four classifiers to our data: Naive Bayes, Support vector machines 
+(SVMs), Random Forest, Logistic regression.
+
+### Naive Bayes Classification
+
+Naive Bayes is a straightforward yet potent classification algorithm widely 
+utilized in machine learning and data analysis. Its main principles hinge on two 
+key ideas: conditional independence and Bayes' Theorem. The model assumes that 
+features are unrelated to each other given the class variable, simplifying 
+computations. It then calculates the likelihood of a class based on input 
+features, making predictions by selecting the class with the highest likelihood. 
+Despite its basic assumptions, Naive Bayes often proves remarkably effective, 
+especially for complex datasets. Its efficiency and quick training make it a 
+practical choice for large-scale applications.
+
+### Support vector machines Classification (SVMs)
+
+Support vector machines (SVMs) stand out as a potent tool in supervised machine 
+learning, serving for classification and regression tasks alike. Their core aim 
+is to pinpoint an optimal hyperplane that maximizes the margin between distinct 
+classes of data points. Operating by projecting input data into a 
+higher-dimensional feature space, SVMs locate a linear decision boundary with 
+the aid of kernel functions, adeptly handling non-linear classification 
+quandaries. Among these functions are the linear, polynomial, and radial basis 
+function (RBF) kernels, each selected based on data characteristics and decision 
+boundary complexity. Noteworthy for their prowess in high-dimensional realms, 
+memory thriftiness by utilizing a subset of training points, and versatility 
+across diverse domains such as text classification, image recognition, and 
+bioinformatics, SVMs remain a stalwart choice in the machine learning toolkit.
+
+### Random Forest Classification
+
+Random Forest is a strong method in machine learning that combines many decision 
+trees to make better predictions. It works like this: first, it builds a 
+"forest" of decision trees. Each tree is trained on a random part of the data 
+and only looks at some of the features. For deciding the class in classification 
+tasks, it takes the most common choice among the trees. In regression, it 
+averages the predictions of all trees. This randomness helps to avoid a common 
+problem called overfitting, where the model is too complex. Random Forest can 
+handle different types of data, like numbers, categories, and text. It also 
+tells us which features are most important for making predictions. Another good 
+thing about Random Forest is that it performs well in many situations without 
+needing a lot of adjustments. Overall, Random Forest is a reliable method in 
+machine learning because it combines many simple trees to give accurate and 
+understandable predictions, making it popular for many tasks.
+
+### Logistic regression Classification
+
+Logistic regression is a useful statistical method for solving binary 
+classification tasks, like predicting whether a customer will buy a product or 
+if a transaction is fraudulent. It works by modeling the probability of the 
+binary outcome based on predictor variables, using a sigmoid function to 
+transform them into probabilities between 0 and 1. The model parameters, which 
+are coefficients, are estimated through maximum likelihood estimation, finding 
+values that best match the observed data. These coefficients represent changes 
+in the log odds of the outcome for each unit change in the predictor, and their 
+exponentiated values are odds ratios, easier to understand. To check how well 
+the model fits the data, tests like the Hosmer-Lemeshow test are used, along 
+with metrics like accuracy and recall. Logistic regression can sometimes overfit
+, especially with many predictors, but techniques like L1 or L2 regularization 
+can help prevent this. Overall, logistic regression is a popular and 
+understandable method for binary classification, providing insight into the 
+relationship between predictors and outcomes.
+
+**Overall**
+
+Because of their special qualities and capacity to deal with the difficulties 
+presented by text data such as its high dimensionality, sparse characteristics, 
+and intricate word relationships these algorithms are frequently employed for 
+text categorization. The algorithm of choice is frequently determined by the 
+particulars of the text data as well as the needs of the application, including 
+interpretability, computational effectiveness, and performance on challenging 
+tasks.
 
 
 ## Results
 
-```{r}
+In this part of the analysis, we will explore four classifiers on the data. For 
+all of them, we compute the confusion matrix and accuracy measures.
+
+A confusion matrix is a powerful tool for evaluating the performance of any 
+classification model, whether it's a binary or multi-class problem. It provides 
+a detailed breakdown of the model's predictions compared to the actual ground 
+truth labels. The confusion matrix is a table with rows representing the true 
+classes and columns representing the predicted classes. The diagonal elements 
+represent the correctly classified instances, while the off-diagonal elements 
+represent the misclassified instances.
+
+For the accuracy measures, various performance metrics can be calculated:
+
++ True Positives (TP): The number of instances correctly predicted as positive.
++ False Positives (FP): The number of instances incorrectly predicted as positive.
++ True Negatives (TN): The number of instances correctly predicted as negative.
++ False Negatives (FN): The number of instances incorrectly predicted as negative.
+
+From these values, various performance metrics can be calculated:
+
+**Calculations**
+$$Accuracy = \frac{TP + TN}{TP + FP + FN + TN}$$
+$$Precision = \frac{TP}{TP + FP}$$
+$$Recall \ (Sensitivity) = \frac{TP}{TP + FN}$$
+The formula for calculating the F1 score is:
+
+$$F1-Score = \frac{2 * precision * recall}{precision + recall}$$
 
 
+### Naïve Bayes classification  
+
+We run the model and get the confusion matrix and the accuracy measures 
+mentioned.
+
+``` {r}
+# for example: Naïve Bayes classifier
+nb_model <- nb_classification(split_data)
+
+# output for Naïve Bayes: Confusion Matrix
+nb_model$Confusion_Matrix
 ```
+
+``` {r}
+# output for Naïve Bayes: Accuracy_Measures
+nb_model$Accuracy_Measures
+```
+
+
+### Support Vector Machine classification 
+
+We run the model and get the confusion matrix and the accuracy measures 
+mentioned.
+
+``` {r}
+# for example: SVM classifier
+svm_model <- svm_classification(split_data, kernel = "linear")
+
+# output for SVM: Confusion Matrix
+svm_model$Confusion_Matrix
+```
+``` {r}
+# output for SVM: Accuracy_Measures
+svm_model$Accuracy_Measures
+```
+
+
+### Random Forest classification model. 
+
+We run the model and get the confusion matrix and the accuracy measures 
+mentioned.
+
+```{r}
+# for example: RF classifier
+rf_model <- rf_classification(split_data)
+
+# output for RF: Confusion Matrix
+rf_model$Confusion_Matrix
+```
+
+``` {r}
+# output for RF: Accuracy_Measures
+rf_model$Accuracy_Measures
+```
+
+
+### Logistic Regression classification model. 
+
+We run the model and get the confusion matrix and the accuracy measures 
+mentioned.
+
+```{r}
+# for example: LOG classifier
+log_model <- log_classification(split_data)
+
+# output for LOG: Confusion Matrix
+log_model$Confusion_Matrix
+```
+
+
+``` {r}
+# output for Naïve Bayes: Accuracy_Measures
+log_model$Accuracy_Measures
+```
+
 
 ## Comparison of Model
 
+Here we compare the model performance of the four classifiers:
 
 ```{r}
-
-
+cbind(
+  Model = c(
+    "Naive Bayes", "Linear - SVM",
+    "RandomForest", "Logistic Regression"
+  ),
+  rbind(
+    nb_model$Accuracy_Measures, svm_model$Accuracy_Measures,
+    rf_model$Accuracy_Measures, log_model$Accuracy_Measures
+  )
+)
 ```
 
+When comparing the performance of the classification models applied to the SMS 
+dataset, distinct patterns emerge regarding their efficacy in distinguishing 
+between `ham` and `spam` messages. **Naive Bayes** showcases a streamlined 
+approach, leveraging conditional independence and Bayesian principles to achieve 
+high accuracy. **Support Vector Machines**, particularly the linear variant, 
+excel in delineating linear decision boundaries, making them adept at handling high-dimensional text data. **Random Forest**, with its ensemble of decision 
+trees, provides robustness against overfitting and performs reliably across 
+various types of data. In contrast, **Logistic Regression** offers 
+interpretability but may struggle with overfitting, especially in scenarios with numerous predictors. Each model brings its own strengths and considerations to 
+the table, highlighting the importance of selecting the most suitable approach 
+based on the specific requirements and constraints of the task at hand.
+
+
+
 ## Discussion & Conclusions
+
+The analysis presented provides a comprehensive evaluation of four 
+classification models applied to the task of distinguishing between `ham` and 
+`spam` messages within the SMS dataset. Each model offers unique strengths and 
+considerations, influencing their performance across various metrics such as 
+accuracy, precision, recall, and F1-score.
+
+Naive Bayes, a simplistic yet powerful algorithm, demonstrates notable 
+performance with high accuracy (98.24%), precision (0.97), recall (0.90), and 
+F1-score (0.93). Its reliance on conditional independence and Bayes' Theorem 
+makes it particularly efficient for large-scale applications, making it a 
+pragmatic choice for text categorization tasks. The model's ability to swiftly 
+process data and make predictions based on probabilistic principles underscores 
+its effectiveness in classifying ham and spam messages.
+
+Support Vector Machines (SVMs), specifically the linear SVM variant used in this analysis, also emerge as a formidable contender, boasting impressive accuracy 
+(97.75%), precision (0.95), recall (0.89), and F1-score (0.92). Linear SVMs 
+excel in delineating linear decision boundaries, making them particularly 
+suitable for high-dimensional datasets like text data. Their efficiency in 
+processing large volumes of data and their ability to handle sparse features 
+contribute to their robust performance in text classification tasks.
+
+Random Forest, an ensemble method that combines multiple decision trees, 
+delivers commendable results with an accuracy of 97.21% but slightly lower 
+precision (0.93), recall (0.86), and F1-score (0.89) compared to Naive Bayes and 
+SVMs. Random Forest's strength lies in its ability to mitigate overfitting by aggregating predictions from multiple trees, thereby enhancing model robustness 
+and generalization. Its capacity to handle different types of data and identify important features makes it a reliable choice for a wide range of classification 
+tasks.
+
+In contrast, Logistic Regression, while exhibiting respectable accuracy (93.33%)
+, lags behind in precision (0.71), recall (0.86), and F1-score (0.78) compared 
+to the other models. Despite its simplicity and interpretability, Logistic 
+Regression may struggle with overfitting, particularly in scenarios with many predictors. However, techniques such as L1 or L2 regularization can mitigate 
+this issue, enhancing the model's performance and generalization capability.
+
+Ultimately, the selection of the most appropriate classification model hinges on 
+various factors such as interpretability, computational efficiency, and 
+performance on challenging tasks. Naive Bayes and linear SVMs stand out for 
+their commendable performance in text categorization tasks, while Random Forest 
+offers robustness against overfitting, and Logistic Regression provides 
+valuable insights into binary classification tasks. Therefore, the choice of 
+model should be tailored to the specific requirements and constraints of the 
+application at hand, ensuring optimal performance and effectiveness in 
+addressing the task objectives.

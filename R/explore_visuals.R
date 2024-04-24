@@ -1,7 +1,7 @@
 #' Function to visualize cleaned data.
 #'
-#' This function use to create visualizations for distribution of the category variable
-#' and number of words for each category.
+#' This function use to create visualizations for distribution of the category
+#' variable and number of words for each category.
 #'
 #' @param data a cleaned \link[text.analysis]{email_list} object
 #' @param numwords number of words need to plot for each category (default: 10)
