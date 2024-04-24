@@ -122,7 +122,7 @@ package as follows:
 
 ``` r
 library(text.analysis)
-data("SMSSpamCollection")
+data("sms_spam_collection")
 ```
 
 ## How to use this package
@@ -141,7 +141,7 @@ library(text.analysis)
 # Read dataset from external resources
 # data <- read_maildf(file ="path/to/file")
 
-data <- SMSSpamCollection
+data <- sms_spam_collection
 
 emailList_object <- convert_mail_list(data)
 
@@ -289,15 +289,15 @@ nb_model <- nb_classification(split_data)
 nb_model$Confusion_Matrix
 #>        
 #> nb_pred  ham spam
-#>    ham  1460   31
-#>    spam   10  202
+#>    ham  1416   19
+#>    spam   10  184
 ```
 
 ``` r
 # output for Naïve Bayes: Accuracy_Measures
 nb_model$Accuracy_Measures
 #>   Accuracy Precision Recall F1_Score
-#> 1   97.59%      0.95   0.87     0.91
+#> 1   98.22%      0.95   0.91     0.93
 ```
 
 **7. Comparing results: Evaluate the model performance and compare

@@ -135,7 +135,7 @@ follows:
 
 ``` {r}
 library(text.analysis)
-data("SMSSpamCollection")
+data("sms_spam_collection")
 ```
 
 
@@ -155,7 +155,7 @@ library(text.analysis)
 # Read dataset from external resources
 # data <- read_maildf(file ="path/to/file")
 
-data <- SMSSpamCollection
+data <- sms_spam_collection
 
 emailList_object <- convert_mail_list(data)
 

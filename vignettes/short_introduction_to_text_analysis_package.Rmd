@@ -74,16 +74,16 @@ messages that have been collected for mobile phone spam research.
 library(text.analysis)
 
 # use the dataset from the library
-raw_data <- SMSSpamCollection
+raw_data <- sms_spam_collection
 
 raw_object <- convert_mail_list(raw_data)
 
 # see description of the dataset
-# ?SMSSpamCollection
+# ?sms_spam_collection
 ```
 
-This raw dataset contains `r nrow(SMSSpamCollection)` observations and 
-`r ncol(SMSSpamCollection)` columns: `category` and `message`. The variable 
+This raw dataset contains `r nrow(sms_spam_collection)` observations and 
+`r ncol(sms_spam_collection)` columns: `category` and `message`. The variable 
 `category` has two classes of messages: `ham` and `spam`. The variable `message`
 shows a ham or spam text based on the `category` variable.
 
@@ -456,10 +456,12 @@ dataset, distinct patterns emerge regarding their efficacy in distinguishing
 between `ham` and `spam` messages. **Naive Bayes** showcases a streamlined 
 approach, leveraging conditional independence and Bayesian principles to achieve 
 high accuracy. **Support Vector Machines**, particularly the linear variant, 
-excel in delineating linear decision boundaries, making them adept at handling high-dimensional text data. **Random Forest**, with its ensemble of decision 
+excel in delineating linear decision boundaries, making them adept at handling 
+high-dimensional text data. **Random Forest**, with its ensemble of decision 
 trees, provides robustness against overfitting and performs reliably across 
 various types of data. In contrast, **Logistic Regression** offers 
-interpretability but may struggle with overfitting, especially in scenarios with numerous predictors. Each model brings its own strengths and considerations to 
+interpretability but may struggle with overfitting, especially in scenarios with
+numerous predictors. Each model brings its own strengths and considerations to 
 the table, highlighting the importance of selecting the most suitable approach 
 based on the specific requirements and constraints of the task at hand.
 
@@ -491,14 +493,17 @@ contribute to their robust performance in text classification tasks.
 Random Forest, an ensemble method that combines multiple decision trees, 
 delivers commendable results with an accuracy of 97.21% but slightly lower 
 precision (0.93), recall (0.86), and F1-score (0.89) compared to Naive Bayes and 
-SVMs. Random Forest's strength lies in its ability to mitigate overfitting by aggregating predictions from multiple trees, thereby enhancing model robustness 
-and generalization. Its capacity to handle different types of data and identify important features makes it a reliable choice for a wide range of classification 
+SVMs. Random Forest's strength lies in its ability to mitigate overfitting by 
+aggregating predictions from multiple trees, thereby enhancing model robustness 
+and generalization. Its capacity to handle different types of data and identify 
+important features makes it a reliable choice for a wide range of classification 
 tasks.
 
 In contrast, Logistic Regression, while exhibiting respectable accuracy (93.33%)
 , lags behind in precision (0.71), recall (0.86), and F1-score (0.78) compared 
 to the other models. Despite its simplicity and interpretability, Logistic 
-Regression may struggle with overfitting, particularly in scenarios with many predictors. However, techniques such as L1 or L2 regularization can mitigate 
+Regression may struggle with overfitting, particularly in scenarios with many 
+predictors. However, techniques such as L1 or L2 regularization can mitigate 
 this issue, enhancing the model's performance and generalization capability.
 
 Ultimately, the selection of the most appropriate classification model hinges on 
