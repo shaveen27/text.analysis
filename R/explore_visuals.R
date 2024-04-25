@@ -6,8 +6,7 @@
 #' @param data a cleaned \link[text.analysis]{email_list} object
 #' @param numwords number of words need to plot for each category (default: 10)
 #'
-#' @importFrom graphics pie barplot
-#' @importFrom grDevices rainbow
+#' @importFrom graphics dotchart
 #'
 #' @return pie chart for category and barcharts for each category
 #'
@@ -63,9 +62,9 @@ explore_visuals <- function(data, numwords = 10) {
     )[seq_len(numwords)]
     dotchart(as.numeric(d),
       labels = names(d),
-      col = "blue", xlab = "Word", ylab = "Count",
+      color = "blue", xlab = "Word", ylab = "Count",
       main = paste0(lbls[i], " Messages"), pch = 19,
-      cex = 1
+      cex = 0.75
     )
   }
 }

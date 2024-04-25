@@ -19,6 +19,12 @@ set.seed(1234)
 
 # Text Analysis Overview
 
+
+### GitHub Repository - text.analysis R Package 
+
+[https://github.com/shaveen27/text.analysis.git](https://github.com/shaveen27/text.analysis.git)
+
+
 ## Introduction
 
 Text analysis techniques such as Natural Language Processing (NLP) can swiftly 
@@ -154,17 +160,16 @@ cleaning implementation.
 
 Here are some visualization for the data exploration:
 
-* The pie chart shows the total percentage of both classes: `ham` and `spam`. We 
-see that 86.6% are classified as ham messages and 13.4% as spam messages.
-* The bar charts show the 10 top more frequent words for the `ham` and `spam` 
-messages. 
+* The dot plots show the 10 top more frequent words for the `ham` and `spam` 
+messages. We chose to show the top 10 words because we will compare these plots 
+with the wordcloud visualization.
 * For the `ham` messages, we have the following top words in a decreasing order: 
 good, day, love, time, ü, lor, today, dont, send, pls. 
 * For the `spam` messages, we have the following top words in a decreasing order
 free, txt, mobile, text, claim, reply, prize, cash, nokia, send.
 
 
-``` {r}
+```{r}
 # explore clean data
 explore_visuals(clean_corpus, numwords = 10)
 ```
@@ -225,7 +230,6 @@ This split creates the training and test data matrices.
 ``` {r, eval=FALSE}
 # model matrix
 final_model_corpus <- final_model_df(clean_corpus, tol = 10)
-
 ```
 
 
@@ -402,7 +406,6 @@ mentioned.
 ```{r, eval=FALSE}
 # for example: SVM classifier
 svm_model <- svm_classification(split_data, kernel = "linear")
-
 ```
 
 ```{r echo=FALSE}
@@ -520,7 +523,8 @@ pragmatic choice for text categorization tasks. The model's ability to swiftly
 process data and make predictions based on probabilistic principles underscores 
 its effectiveness in classifying ham and spam messages.
 
-Support Vector Machines (SVMs), specifically the linear SVM variant used in this analysis, also emerge as a formidable contender, boasting impressive accuracy 
+Support Vector Machines (SVMs), specifically the linear SVM variant used in this 
+analysis, also emerge as a formidable contender, boasting impressive accuracy 
 (97.75%), precision (0.95), recall (0.89), and F1-score (0.92). Linear SVMs 
 excel in delineating linear decision boundaries, making them particularly 
 suitable for high-dimensional datasets like text data. Their efficiency in 
