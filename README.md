@@ -223,7 +223,7 @@ data_exploration[1:5]
 explore_visuals(clean_corpus)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" /><img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" /><img src="man/figures/README-unnamed-chunk-6-3.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" /><img src="man/figures/README-unnamed-chunk-6-2.png" width="100%" />
 
 **4. Visualizing the corpus with word clouds**
 
@@ -290,15 +290,15 @@ nb_model <- nb_classification(split_data)
 nb_model$Confusion_Matrix
 #>        
 #> nb_pred  ham spam
-#>    ham  1409   16
-#>    spam   12  181
+#>    ham  1470   25
+#>    spam    6  207
 ```
 
 ``` r
 # output for Naïve Bayes: Accuracy_Measures
 nb_model$Accuracy_Measures
 #>   Accuracy Precision Recall F1_Score
-#> 1   98.27%      0.94   0.92     0.93
+#> 1   98.19%      0.97   0.89     0.93
 ```
 
 **7. Comparing results: Evaluate the model performance and compare
