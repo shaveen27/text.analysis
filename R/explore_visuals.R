@@ -48,18 +48,9 @@ explore_visuals <- function(data, numwords = 10) {
     )
   }
 
-  # Construct Pie Chart for Categories
-  tab <- table(data$category)
-  slices <- as.vector(tab)
-  lbls <- names(tab)
-  pct <- round(slices / sum(slices) * 100, 2)
-  lbls1 <- paste(paste(lbls, pct), "%", sep = "")
-  pie(slices,
-    labels = lbls1, col = rainbow(length(lbls)),
-    main = "Pie Chart of Categories"
-  )
-
   # Construct bar chart for each category
+  tab <- table(data$category)
+  lbls <- names(tab)
   df <- data.frame(unclass(data))
 
   for (i in seq_len(length(lbls))) {
@@ -70,9 +61,11 @@ explore_visuals <- function(data, numwords = 10) {
       )),
       decreasing = TRUE
     )[seq_len(numwords)]
-    barplot(d,
-      col = "skyblue", xlab = "Word", ylab = "Count",
-      main = paste0(lbls[i], " Messages")
+    dotchart(as.numeric(d),
+      labels = names(d),
+      col = "blue", xlab = "Word", ylab = "Count",
+      main = paste0(lbls[i], " Messages"), pch = 19,
+      cex = 1
     )
   }
 }

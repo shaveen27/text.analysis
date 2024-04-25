@@ -166,7 +166,7 @@ free, txt, mobile, text, claim, reply, prize, cash, nokia, send.
 
 ``` {r}
 # explore clean data
-explore_visuals(clean_corpus)
+explore_visuals(clean_corpus, numwords = 10)
 ```
 
 
@@ -222,14 +222,24 @@ message type, while the subsequent columns represent the words in the dataset.
 Then, we partition our clean data as follows: 70% training and 30% test sets. 
 This split creates the training and test data matrices. 
 
-``` {r}
+``` {r, eval=FALSE}
 # model matrix
 final_model_corpus <- final_model_df(clean_corpus, tol = 10)
 
+```
+
+
+```{r echo=FALSE}
+load(file = "final_model_corpus.rda")
+```
+
+
+```{r}
 set.seed(1234)
 # partition
 split_data <- partition(model_df = final_model_corpus, prob = 0.7)
 ```
+
 
 
 Here is a table with the number of observations for the training and test sets:
@@ -363,13 +373,20 @@ $$F1-Score = \frac{2 * precision * recall}{precision + recall}$$
 We run the model and get the confusion matrix and the accuracy measures 
 mentioned.
 
-``` {r}
+```{r, eval=FALSE}
 # for example: Naïve Bayes classifier
 nb_model <- nb_classification(split_data)
+```
 
+```{r echo=FALSE}
+load(file = "nb_model.rda")
+```
+
+```{r}
 # output for Naïve Bayes: Confusion Matrix
 nb_model$Confusion_Matrix
 ```
+
 
 ``` {r}
 # output for Naïve Bayes: Accuracy_Measures
@@ -382,13 +399,21 @@ nb_model$Accuracy_Measures
 We run the model and get the confusion matrix and the accuracy measures 
 mentioned.
 
-``` {r}
+```{r, eval=FALSE}
 # for example: SVM classifier
 svm_model <- svm_classification(split_data, kernel = "linear")
 
+```
+
+```{r echo=FALSE}
+load(file = "svm_model.rda")
+```
+
+```{r}
 # output for SVM: Confusion Matrix
 svm_model$Confusion_Matrix
 ```
+
 ``` {r}
 # output for SVM: Accuracy_Measures
 svm_model$Accuracy_Measures
@@ -400,10 +425,16 @@ svm_model$Accuracy_Measures
 We run the model and get the confusion matrix and the accuracy measures 
 mentioned.
 
-```{r}
+```{r, eval=FALSE}
 # for example: RF classifier
 rf_model <- rf_classification(split_data)
+```
 
+```{r echo=FALSE}
+load(file = "rf_model.rda")
+```
+
+```{r}
 # output for RF: Confusion Matrix
 rf_model$Confusion_Matrix
 ```
@@ -419,10 +450,16 @@ rf_model$Accuracy_Measures
 We run the model and get the confusion matrix and the accuracy measures 
 mentioned.
 
-```{r}
+```{r, eval=FALSE}
 # for example: LOG classifier
 log_model <- log_classification(split_data)
+```
 
+```{r echo=FALSE}
+load(file = "log_model.rda")
+```
+
+```{r}
 # output for LOG: Confusion Matrix
 log_model$Confusion_Matrix
 ```
